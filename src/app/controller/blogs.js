@@ -6,20 +6,24 @@ module.exports = {
   getBloggCategory: async (req, res) => {
     return response.ok(res, [
       {
+        id: 0,
+        label: "All Blogs",
+      },
+      {
         id: 1,
-        name: "Clining Checklists",
+        label: "Clining Checklists",
       },
       {
         id: 2,
-        name: "Clining Tips",
+        label: "Clining Tips",
       },
       {
         id: 3,
-        name: "Decluttering",
+        label: "Decluttering",
       },
       {
         id: 4,
-        name: "Eco living",
+        label: "Eco living",
       },
     ]);
   },
