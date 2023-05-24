@@ -14,8 +14,8 @@ module.exports = {
     },
     getServiceQuestions: (req, res) => {
         try {
-            fs.readFile("./../data/a.json", 'utf-8', (data) => {
-                return response.ok(res, { questions: data });
+            fs.readFile(__dirname + "/data/a.json", 'utf-8', (err, data) => {
+                return response.ok(res, { service: JSON.parse(data) });
             });
 
         } catch (error) {
