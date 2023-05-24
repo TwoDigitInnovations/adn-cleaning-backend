@@ -8,6 +8,13 @@ const blog = new mongoose.Schema(
     blog_image: {
       type: String,
     },
+    blog_content: {
+      type: String,
+    },
+    posted_by: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
 
     blog: {
       type: [

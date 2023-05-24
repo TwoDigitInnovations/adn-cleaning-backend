@@ -41,7 +41,7 @@ module.exports = {
 
   getBlog: async (req, res) => {
     try {
-      let blog = await Blog.find();
+      let blog = await Blog.find().populate("posted_by", "username  email");
       return response.ok(res, blog);
     } catch (error) {
       return response.error(res, error);
