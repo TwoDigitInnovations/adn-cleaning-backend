@@ -11,6 +11,7 @@ const Verification = mongoose.model("Verification");
 const Notification = mongoose.model("Notification");
 const Identity = mongoose.model("Identity");
 const Client = mongoose.model("Client");
+const Getintouch = mongoose.model("Getintouch");
 
 module.exports = {
   // login controller
@@ -83,6 +84,27 @@ module.exports = {
       return response.error(res, error);
     }
   },
+
+  createGetInTouch: async (req, res) => {
+    try {
+      const payload = req?.body || {};
+      let getintouch = new Getintouch(payload);
+      const blg = await getintouch.save();
+      return response.ok(res, blg);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  getGetInTouch: async (req, res) => {
+    try {
+      let blog = await Getintouch.find();
+      return response.ok(res, blog);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
   changePasswordProfile: async (req, res) => {
     try {
       let user = await User.findById(req.user.id);

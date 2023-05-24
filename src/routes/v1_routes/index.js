@@ -17,6 +17,9 @@ router.post("/sendOTP", user.sendOTP);
 router.post("/verifyOTP", user.verifyOTP);
 router.post("/changePassword", user.changePassword);
 
+router.post("/getInTouch", user.createGetInTouch);
+router.get("/get-getInTouch", user.getGetInTouch);
+
 //blogs
 
 router.get("/getblogcategory", blog.getBloggCategory);
