@@ -21,10 +21,6 @@ module.exports = {
         id: 4,
         name: "Eco living",
       },
-      {
-        id: 5,
-        name: "eMop stories",
-      },
     ]);
   },
 
