@@ -1,6 +1,7 @@
 "use strict";
 const router = require("express").Router();
 const user = require("../../app/controller/user");
+const blog = require("../../app/controller/blogs");
 const job = require("../../app/controller/job");
 const event = require("../../app/controller/event");
 const admin = require("../../app/controller/admin");
@@ -15,6 +16,14 @@ router.post("/login", user.login);
 router.post("/sendOTP", user.sendOTP);
 router.post("/verifyOTP", user.verifyOTP);
 router.post("/changePassword", user.changePassword);
+
+//blogs
+
+router.get("/getblogcategory", blog.getBloggCategory);
+router.post("/create-blog", blog.createBlog);
+router.get("/get-blog", blog.getBlog);
+router.post("/update-blog", blog.updateBlog);
+router.delete("/delete-blog", blog.deleteBlog);
 
 // Service User
 router.post("/jobs", isAuthenticated(["USER", "ADMIN"]), job.createJob);
