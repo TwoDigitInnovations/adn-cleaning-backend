@@ -1,7 +1,7 @@
 'use strict';
 const mongoose = require('mongoose');
 const bookingSchema = new mongoose.Schema({
-    name: {
+    service: {
         type: String
     },
     user:{

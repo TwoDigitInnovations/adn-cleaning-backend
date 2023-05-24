@@ -27,7 +27,7 @@ router.delete("/delete-blog", blog.deleteBlog);
 
 
 // Booking
-router.get("/service/available", service.serviceAvailable);
+router.get("/service/available/:zip", service.serviceAvailable);
 
 
 module.exports = router;

@@ -1,0 +1,71 @@
+{
+    "precleaning": {
+        "name": "End of Tenancy Cleaning",
+        "questions": [
+            {
+                "title": "Property Type?",
+                "options": [
+                    {
+                        "title": "House",
+                        "value": 10
+                    },
+                    {
+                        "title": "Flat",
+                        "value": 15
+                    }
+                ]
+            },
+            {
+                "title": "Number of Bedrooms?",
+                "options": [
+                    {
+                        "title": "1 Bedroom",
+                        "value": 5
+                    },
+                    {
+                        "title": "2 Bedroom",
+                        "value": 10
+                    },
+                    {
+                        "title": "3 Bedroom",
+                        "value": 15
+                    },
+                    {
+                        "title": "4 Bedroom",
+                        "value": 20
+                    }
+                ]
+            },
+            {
+                "title": "Number of Living Rooms?",
+                "options": [
+                    {
+                        "title": "1 living room",
+                        "value": 10
+                    },
+                    {
+                        "title": "2 living room",
+                        "value": 20
+                    }
+                ]
+            },
+            {
+                "title": "Number of Bathrooms?",
+                "options": [
+                    {
+                        "title": "1 Bathroom",
+                        "value": 10
+                    },
+                    {
+                        "title": "2 Bathroom",
+                        "value": 20
+                    }
+                ]
+            }
+        ]
+    },
+    "ovencleaning": {
+        "name": "ovencleaning",
+        "questions": []
+    }
+}
