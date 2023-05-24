@@ -2,6 +2,7 @@
 const router = require("express").Router();
 const user = require("../../app/controller/user");
 const blog = require("../../app/controller/blogs");
+const service = require("../../app/controller/service");
 
 const isAuthenticated = require("./../../middlewares/isAuthenticated");
 
@@ -23,5 +24,10 @@ router.post("/create-blog", blog.createBlog);
 router.get("/get-blog", blog.getBlog);
 router.post("/update-blog", blog.updateBlog);
 router.delete("/delete-blog", blog.deleteBlog);
+
+
+// Booking
+router.get("/service/available", service.serviceAvailable);
+
 
 module.exports = router;
