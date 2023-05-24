@@ -5,12 +5,9 @@ const passport = require("passport");
 const jwtService = require("./../services/jwtService");
 const mailNotification = require("./../services/mailNotification");
 const mongoose = require("mongoose");
-const Device = mongoose.model("Device");
 const User = mongoose.model("User");
 const Verification = mongoose.model("Verification");
 const Notification = mongoose.model("Notification");
-const Identity = mongoose.model("Identity");
-const Client = mongoose.model("Client");
 const Getintouch = mongoose.model("Getintouch");
 
 module.exports = {
@@ -30,11 +27,6 @@ module.exports = {
         type: user.type,
       });
 
-      await Device.updateOne(
-        { device_token: req.body.device_token },
-        { $set: { player_id: req.body.player_id, user: user._id } },
-        { upsert: true }
-      );
 
       return response.ok(res, {
         token,
@@ -121,14 +113,7 @@ module.exports = {
   },
   me: async (req, res) => {
     try {
-      let [user, identity] = await Promise.all([
-        userHelper.find({ _id: req.user.id }).lean(),
-        Identity.find({ user: req.user.id }).lean(),
-      ]);
-      user.identity = identity.map((i) => {
-        i.image = `${process.env.ASSET_ROOT}/${i.key}`;
-        return i;
-      });
+      let user = await userHelper.find({ _id: req.user.id }).lean();
       return response.ok(res, user);
     } catch (error) {
       return response.error(res, error);
@@ -314,141 +299,5 @@ module.exports = {
     } catch (error) {
       return response.error(res, error);
     }
-  },
-  allOrganization: async (req, res) => {
-    try {
-      const users = await userHelper.findAll({ isOrganization: true }).lean();
-      return response.ok(res, { users });
-    } catch (error) {
-      return response.error(res, error);
-    }
-  },
-  guardListWithIdentity: async (req, res) => {
-    try {
-      let cond = { type: "PROVIDER" };
-      if (req.body.search) {
-        cond = {
-          type: "PROVIDER",
-          $or: [
-            { username: { $regex: req.body.search } },
-            { email: { $regex: req.body.search } },
-          ],
-        };
-      }
-      let guards = await userHelper.findAll(cond).lean();
-
-      const ids = guards.map((a) => a._id);
-      const identity = await Identity.find({ user: { $in: ids } }).lean();
-      const hash = {};
-      identity.map((r) => {
-        if (hash[r.user]) {
-          hash[r.user].push(r);
-        } else {
-          hash[r.user] = [r];
-        }
-      });
-      guards.map((g) => {
-        g.identity = hash[g._id];
-      });
-      return response.ok(res, { guards });
-    } catch (error) {
-      return response.error(res, error);
-    }
-  },
-  guardListSearch: async (req, res) => {
-    try {
-      const cond = {
-        type: "PROVIDER",
-        $or: [
-          { username: { $regex: req.body.search } },
-          { email: { $regex: req.body.search } },
-        ],
-      };
-      let guards = await User.find(cond).lean();
-      return response.ok(res, { guards });
-    } catch (error) {
-      return response.error(res, error);
-    }
-  },
-  //////////Inten Surya's code ---!!!caution!!!/////
-
-  //GuardList
-
-  verifyGuard: async (req, res) => {
-    try {
-      await User.updateOne(
-        { email: req.body.email },
-        { $set: { verified: req.body.verified } }
-      );
-      return response.ok(res, {
-        message: req.body.verified ? "Guard Verified." : "Guard Suspended.",
-      });
-    } catch (error) {
-      return response.error(res, error);
-    }
-  },
-
-  getStaffList: async (req, res) => {
-    try {
-      //let cond = { type: 'PROVIDER'};
-      let guards = await User.find({ type: "PROVIDER" }, { username: 1 });
-      return response.ok(res, { guards });
-    } catch (error) {
-      return response.error(res, error);
-    }
-  },
-
-  regNewClient: async (req, res) => {
-    try {
-      const payload = req.body;
-      let client = new Client({
-        fullName: payload.fullName,
-        billingName: payload.billingName,
-        rate: payload.rate,
-        vat: payload.vat,
-        address: payload.address,
-        billingAddress: payload.billingAddress,
-        email: payload.email,
-        phoneNumber: payload.phoneNumber,
-        clientRef: payload.clientRef,
-        organization: req.user.id,
-      });
-      await client.save();
-      return response.ok(res, { message: "Client created!" });
-    } catch (error) {
-      return response.error(res, error);
-    }
-  },
-
-  getAllClients: async (req, res) => {
-    try {
-      let cond = { organization: req.user.id };
-      let client = req.params["client_id"];
-      let org_id = req.query["org_id"];
-      if (client) cond._id = client;
-      if (req.user.type == "ADMIN" && org_id) cond.organization = org_id;
-      let clients = await Client.find(cond).lean();
-      return response.ok(res, { clients });
-    } catch (error) {
-      return response.error(res, error);
-    }
-  },
-  deleteClient: async (req, res) => {
-    try {
-      let client = req.params["client_id"];
-      await Client.deleteOne({ _id: client });
-      return response.ok(res, { message: "Client deleted." });
-    } catch (error) {
-      return response.error(res, error);
-    }
-  },
-  updateClient: async (req, res) => {
-    try {
-      let client = req.params["client_id"];
-      await Client.findByIdAndUpdate(client, req.body);
-      return response.ok(res, { message: "Client updated!" });
-    } catch (error) {
-      return response.error(res, error);
-    }
-  },
+  }
 };
