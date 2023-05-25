@@ -48,6 +48,36 @@ module.exports = {
     }
   },
 
+  getBlogById: async (req, res) => {
+    try {
+      let blog = await Blog.findById(req?.body?.id).populate(
+        "posted_by",
+        "username  email"
+      );
+      return response.ok(res, blog);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  getBlogByCategory: async (req, res) => {
+    try {
+      let blog = [];
+      if (req?.body?.cat_id === 0) {
+        blog = await Blog.find().populate("posted_by", "username  email");
+      } else {
+        blog = await Blog.find({ category: req?.body?.cat_id }).populate(
+          "posted_by",
+          "username  email"
+        );
+      }
+
+      return response.ok(res, blog);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
   updateBlog: async (req, res) => {
     try {
       const payload = req?.body || {};

@@ -23,12 +23,12 @@ router.get("/getblogcategory", blog.getBloggCategory);
 router.post("/create-blog", blog.createBlog);
 router.get("/get-blog", blog.getBlog);
 router.post("/update-blog", blog.updateBlog);
+router.post("/getBlogById", blog.getBlogById);
+router.post("/getBlogByCategory", blog.getBlogByCategory);
 router.delete("/delete-blog", blog.deleteBlog);
-
 
 // Booking
 router.get("/service/available/:zip", service.serviceAvailable);
 router.get("/service/questions/:service", service.getServiceQuestions);
-
 
 module.exports = router;
