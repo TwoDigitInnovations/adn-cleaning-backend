@@ -41,7 +41,7 @@ module.exports = {
         try {
             const sd = new Date(req.query["startDate"]);
             const ed = new Date(req.query["endDate"]);
-            const bookings = await Booking.find({ slot: { $gte: sd, $lt: ed } }).lean();
+            const bookings = await Booking.find({ "slot.date": { $gte: sd, $lte: ed } }).lean();
             return response.ok(res, { bookings });
         } catch (error) {
             return response.error(res, error);
