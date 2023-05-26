@@ -27,7 +27,9 @@ module.exports = {
     },
     createBooking: async (req, res) => {
         try {
-            //
+            const details = req.body;
+            const booking = new Booking(details);
+            await booking.save();
             return response.ok(res, { message: "Booking created." });
         } catch (error) {
             return response.error(res, error);

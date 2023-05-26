@@ -10,20 +10,17 @@ const bookingSchema = new mongoose.Schema({
         ref: 'User'
     },
     services: {
-
+        type: Array, "default": []
     },
     location: {
-
+        type: String
     },
     slot: {
-
+        date: { type: Date }, time: { type: String }
     },
-    payment:{
-
+    card: {
+        type: Object, "default": {}
     }
-
-}, {
-    timestamps: true
 });
 
 bookingSchema.set('toJSON', {
