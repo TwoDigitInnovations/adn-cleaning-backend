@@ -17,7 +17,9 @@ module.exports = {
     },
     getServiceQuestions: async (req, res) => {
         try {
-            fs.readFile(__dirname + "/data/a.json", 'utf-8', (err, data) => {
+            // const service = req.params["service"];
+            const service = "a";
+            fs.readFile(__dirname + `/data/${service}.json`, 'utf-8', (err, data) => {
                 return response.ok(res, { service: JSON.parse(data) });
             });
 
