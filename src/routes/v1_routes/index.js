@@ -30,5 +30,6 @@ router.delete("/delete-blog", blog.deleteBlog);
 router.get("/service/available/:zip", service.serviceAvailable);
 router.get("/service/questions/:service", service.getServiceQuestions);
 
+router.post("/service/booking", service.createBooking);
 
 module.exports = router;

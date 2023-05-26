@@ -1,13 +1,27 @@
 'use strict';
 const mongoose = require('mongoose');
+
 const bookingSchema = new mongoose.Schema({
-    service: {
+    name: {
         type: String
     },
-    user:{
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    services: {
+
+    },
+    location: {
+
+    },
+    slot: {
+
+    },
+    payment:{
+
     }
+
 }, {
     timestamps: true
 });

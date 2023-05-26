@@ -21,6 +21,14 @@ module.exports = {
         } catch (error) {
             return response.error(res, error);
         }
+    },
+    createBooking: (req, res) => {
+        try {
+            //
+            return response.ok(res, { message: "Booking created." });
+        } catch (error) {
+            return response.error(res, error);
+        }
     }
 
 }
