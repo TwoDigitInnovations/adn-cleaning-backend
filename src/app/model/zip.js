@@ -2,7 +2,8 @@
 const mongoose = require('mongoose');
 const zipSchema = new mongoose.Schema({
     code: {
-        type: String
+        type: String,
+        unique: true,
     },
     message: {
         type: String

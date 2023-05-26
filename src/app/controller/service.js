@@ -1,18 +1,21 @@
 const mongoose = require("mongoose");
 const response = require("./../responses");
 const Zip = mongoose.model("Zip");
+const Booking = mongoose.model("Booking");
 const fs = require("fs");
 
 module.exports = {
-    serviceAvailable: (req, res) => {
+    serviceAvailable: async (req, res) => {
         try {
+
+            const zip = Zip.findOne({ code: req.params["zip"] }).lean();
 
             return response.ok(res, { available: true, message: "available" });
         } catch (error) {
             return response.error(res, error);
         }
     },
-    getServiceQuestions: (req, res) => {
+    getServiceQuestions: async (req, res) => {
         try {
             fs.readFile(__dirname + "/data/a.json", 'utf-8', (err, data) => {
                 return response.ok(res, { service: JSON.parse(data) });
@@ -22,10 +25,20 @@ module.exports = {
             return response.error(res, error);
         }
     },
-    createBooking: (req, res) => {
+    createBooking: async (req, res) => {
         try {
             //
             return response.ok(res, { message: "Booking created." });
+        } catch (error) {
+            return response.error(res, error);
+        }
+    },
+    getBookings: async (req, res) => {
+        try {
+            const sd = new Date(req.query["startDate"]);
+            const ed = new Date(req.query["endDate"]);
+            const bookings = await Booking.find({ slot: { $gte: sd, $lt: ed } }).lean();
+            return response.ok(res, { bookings });
         } catch (error) {
             return response.error(res, error);
         }
