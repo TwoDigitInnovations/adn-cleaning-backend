@@ -53,7 +53,9 @@ module.exports = {
 
   getBookingById: async (req, res) => {
     try {
-      const booking = await Booking.find({ booking_for: req?.user?.id });
+      const booking = await Booking.find({
+        booking_for: req?.user?.id,
+      }).populate("booking_for", "username email");
       return response.ok(res, { booking });
     } catch (error) {
       return response.error(res, error);
