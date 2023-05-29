@@ -30,11 +30,22 @@ router.delete("/delete-blog", blog.deleteBlog);
 // Booking
 router.get("/service/available/:zip", service.serviceAvailable);
 router.get("/service/questions/:service", service.getServiceQuestions);
-router.post("/service/booking", service.createBooking);
+router.post(
+  "/service/booking",
+  isAuthenticated(["USER", "ADMIN"]),
+  service.createBooking
+);
 
 //ADMIN
-router.get("/admin/bookings", service.getBookings);
-
-
+router.get(
+  "/admin/bookings",
+  isAuthenticated(["USER", "ADMIN"]),
+  service.getBookings
+);
+router.get(
+  "/user/bookings",
+  isAuthenticated(["USER", "ADMIN"]),
+  service.getBookingById
+);
 
 module.exports = router;

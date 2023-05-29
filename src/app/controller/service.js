@@ -28,6 +28,7 @@ module.exports = {
   createBooking: async (req, res) => {
     try {
       const details = req.body;
+      details.booking_for = req.user.id;
       const booking = new Booking(details);
       await booking.save();
       return response.ok(res, { message: "Booking created." });
@@ -45,6 +46,15 @@ module.exports = {
         .populate("booking_for", "username email")
         .lean();
       return response.ok(res, { bookings });
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  getBookingById: async (req, res) => {
+    try {
+      const booking = await Booking.find({ booking_for: req?.user?.id });
+      return response.ok(res, { booking });
     } catch (error) {
       return response.error(res, error);
     }

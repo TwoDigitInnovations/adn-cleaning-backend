@@ -27,7 +27,6 @@ module.exports = {
         type: user.type,
       });
 
-
       return response.ok(res, {
         token,
         username: user.username,
@@ -299,5 +298,5 @@ module.exports = {
     } catch (error) {
       return response.error(res, error);
     }
-  }
+  },
 };
