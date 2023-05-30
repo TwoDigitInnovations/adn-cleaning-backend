@@ -7,11 +7,11 @@
             "options": [
                 {
                     "title": "House",
-                    "value": 10
+                    "value": 0
                 },
                 {
                     "title": "Flat",
-                    "value": 15
+                    "value": 0
                 }
             ]
         },
@@ -21,19 +21,19 @@
             "options": [
                 {
                     "title": "1 Bedroom",
-                    "value": 5
+                    "value": 110
                 },
                 {
                     "title": "2 Bedroom",
-                    "value": 10
+                    "value": 150
                 },
                 {
                     "title": "3 Bedroom",
-                    "value": 15
+                    "value": 200
                 },
                 {
                     "title": "4 Bedroom",
-                    "value": 20
+                    "value": 380
                 }
             ]
         },
@@ -43,11 +43,15 @@
             "options": [
                 {
                     "title": "1 living room",
-                    "value": 10
+                    "value": 50
                 },
                 {
                     "title": "2 living room",
-                    "value": 20
+                    "value": 80
+                },
+                {
+                    "title": "3 living room",
+                    "value": 120
                 }
             ]
         },
@@ -57,11 +61,37 @@
             "options": [
                 {
                     "title": "1 Bathroom",
-                    "value": 10
+                    "value": 50
                 },
                 {
                     "title": "2 Bathroom",
-                    "value": 20
+                    "value": 80
+                },
+                {
+                    "title": "2 Bathroom",
+                    "value": 120
+                }
+            ]
+        },
+        {
+            "title": "Do you require Window cleaning?",
+            "type": "quantity",
+            "options": [
+                {
+                    "title": "No Thanks",
+                    "value": 0
+                },
+                {
+                    "title": "Yes, How many room(s)?",
+                    "value": 30
+                },
+                {
+                    "title": "Yes, How many Hallways(s)?",
+                    "value": 15
+                },
+                {
+                    "title": "Staircase (s)?",
+                    "value": 30
                 }
             ]
         },
@@ -75,8 +105,94 @@
                 },
                 {
                     "title": "Externally 1 - 5 windows (up to the 2nd floor level)",
-                    "value": 20
+                    "value": 60
+                },{
+                    "title":"Externally 6 - 10 windows (up to the 2nd floor level)",
+                    "value":120
                 }
+            ]
+        },
+
+        {
+            "title": "Additional services",
+            "type": "multi",
+            "options": [
+                {
+                    "title": "No, Thanks.",
+                    "value": 0
+                },
+                {
+                    "title": "Toilet",
+                    "value": 20
+                },{
+                    "title":"Shutters",
+                    "value":15
+                },
+                {
+                    "title": "Blinds",
+                    "value": 12
+                },
+                {
+                    "title": "Standard Utility Room",
+                    "value": 20
+                },
+                {
+                    "title":"Standard Apartment Balcony ",
+                    "value":30
+                },
+                {
+                    "title":"Standard One Space Car Garage",
+                    "value":30
+                }
+            ]
+        },
+        {
+            "title": "Do you require upholstery cleaning?",
+            "type": "multi",
+            "options": [
+                {
+                    "title": "No, Thanks.",
+                    "value": 0
+                },
+                {
+                    "title": "Dining chairs",
+                    "value": 10
+                },{
+                    "title":"Arm chairs",
+                    "value":25
+                },
+                {
+                    "title": "2 seater sofa",
+                    "value": 30
+                },
+                {
+                    "title": "3 seater sofa",
+                    "value": 35
+                },
+                {
+                    "title":"L-shaped sofa",
+                    "value":55
+                },
+                {
+                    "title":"Mattress - Single",
+                    "value":20
+                },
+                {
+                    "title": "Mattress - Double",
+                    "value": 30
+                },{
+                    "title":"Mattress - king",
+                    "value":50
+                },
+                {
+                    "title": "Rug - Small",
+                    "value": 40
+                },
+                {
+                    "title": "Rug - Large",
+                    "value": 60
+                }
+              
             ]
         }
     ]
