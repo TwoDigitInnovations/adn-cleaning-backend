@@ -15,7 +15,7 @@ router.post("/sendOTP", user.sendOTP);
 router.post("/verifyOTP", user.verifyOTP);
 router.post("/changePassword", user.changePassword);
 router.get("/profile", isAuthenticated(["USER", "ADMIN"]), user.me);
-router.get(
+router.post(
   "/updateprofile",
   isAuthenticated(["USER", "ADMIN"]),
   user.updateUser
