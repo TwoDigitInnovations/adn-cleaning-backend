@@ -2,11 +2,11 @@
      "services":[
         { "label": "End of Tenancy","value":"EndofTenancy" },
         { "label": "Pre Tenancy" ,"value":"PreTenancy"},
-        { "label": "After builders","value":"AfterBuilders"  },
+        { "label": "After Builders","value":"AfterBuilders"  },
         { "label": "One-off Deep Clean" , "value":"Deepclean"},
-        { "label": "Oven cleaning","value":"OvenCleaning" },
-        { "label": "Carpet cleaning","value":"CarpetCleaning" },
-        { "label": "Upholstery cleaning","value":"UpholsteryCleaning" },
-        { "label": "Commercial cleaning","value":"CommerciaCleaning" }
+        { "label": "Oven Cleaning","value":"OvenCleaning" },
+        { "label": "Carpet Cleaning","value":"CarpetCleaning" },
+        { "label": "Upholstery Cleaning","value":"UpholsteryCleaning" },
+        { "label": "Commercial Cleaning","value":"CommerciaCleaning" }
      ]
 }
