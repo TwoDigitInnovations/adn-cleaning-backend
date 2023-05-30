@@ -95,23 +95,7 @@
                 }
             ]
         },
-        {
-            "title": "Do you require Window cleaning?",
-            "type": "multi",
-            "options": [
-                {
-                    "title": "Internal Only (Free)",
-                    "value": 0
-                },
-                {
-                    "title": "Externally 1 - 5 windows (up to the 2nd floor level)",
-                    "value": 60
-                },{
-                    "title":"Externally 6 - 10 windows (up to the 2nd floor level)",
-                    "value":120
-                }
-            ]
-        },
+        
 
         {
             "title": "Additional services",
@@ -143,6 +127,23 @@
                 {
                     "title":"Standard One Space Car Garage",
                     "value":30
+                }
+            ]
+        },
+        {
+            "title": "Do you require Window cleaning?",
+            "type": "multi",
+            "options": [
+                {
+                    "title": "Internal Only (Free)",
+                    "value": 0
+                },
+                {
+                    "title": "Externally 1 - 5 windows (up to the 2nd floor level)",
+                    "value": 60
+                },{
+                    "title":"Externally 6 - 10 windows (up to the 2nd floor level)",
+                    "value":120
                 }
             ]
         },
