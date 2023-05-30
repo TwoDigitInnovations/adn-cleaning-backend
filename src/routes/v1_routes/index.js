@@ -15,6 +15,11 @@ router.post("/sendOTP", user.sendOTP);
 router.post("/verifyOTP", user.verifyOTP);
 router.post("/changePassword", user.changePassword);
 router.get("/profile", isAuthenticated(["USER", "ADMIN"]), user.me);
+router.get(
+  "/updateprofile",
+  isAuthenticated(["USER", "ADMIN"]),
+  user.updateUser
+);
 
 router.post("/getInTouch", user.createGetInTouch);
 router.get("/get-getInTouch", user.getGetInTouch);

@@ -121,13 +121,13 @@ module.exports = {
   updateUser: async (req, res) => {
     try {
       delete req.body.password;
-      if (req.body.location) {
-        req.body.location = {
-          type: "Point",
-          // [longitude, latitude]
-          coordinates: req.body.location,
-        };
-      }
+      // if (req.body.location) {
+      //   req.body.location = {
+      //     type: "Point",
+      //     // [longitude, latitude]
+      //     coordinates: req.body.location,
+      //   };
+      // }
       const id = req.body.gaurd_id || req.user.id;
       await User.updateOne({ _id: id }, { $set: req.body });
       return response.ok(res, { message: "Profile Updated." });
