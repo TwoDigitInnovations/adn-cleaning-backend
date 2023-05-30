@@ -14,10 +14,26 @@ module.exports = {
       return response.error(res, error);
     }
   },
-  getServiceQuestions: async (req, res) => {
+  getServices: async (req, res) => {
     try {
       // const service = req.params["service"];
-      const service = "a";
+
+      fs.readFile(
+        __dirname + `/data/allServices.json`,
+        "utf-8",
+        (err, data) => {
+          return response.ok(res, JSON.parse(data));
+        }
+      );
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  getServiceQuestions: async (req, res) => {
+    try {
+      const service = req.params["service"];
+      // const service = "a";
       fs.readFile(__dirname + `/data/${service}.json`, "utf-8", (err, data) => {
         return response.ok(res, { service: JSON.parse(data) });
       });

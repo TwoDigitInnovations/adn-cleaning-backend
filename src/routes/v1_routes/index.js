@@ -30,6 +30,7 @@ router.delete("/delete-blog", blog.deleteBlog);
 
 // Booking
 router.get("/service/available/:zip", service.serviceAvailable);
+router.get("/service/allservices", service.getServices);
 router.get("/service/questions/:service", service.getServiceQuestions);
 router.post(
   "/service/booking",

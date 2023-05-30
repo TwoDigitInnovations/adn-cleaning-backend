@@ -1,0 +1,204 @@
+{
+    "name": "One-off Deep Clean",
+    "questions": [
+        {
+            "title": "Property Type?",
+            "type": "single",
+            "options": [
+                {
+                    "title": "House",
+                    "value": 0
+                },
+                {
+                    "title": "Flat",
+                    "value": 0
+                }
+            ]
+        },
+        {
+            "title": "Number of Bedrooms?",
+            "type": "single",
+            "options": [
+                {
+                    "title": "1 Bedroom",
+                    "value": 120
+                },
+                {
+                    "title": "2 Bedroom",
+                    "value": 180
+                },
+                {
+                    "title": "3 Bedroom",
+                    "value": 240
+                },
+                {
+                    "title": "4 Bedroom",
+                    "value": 390
+                }
+            ]
+        },
+        {
+            "title": "Number of Living Rooms?",
+            "type": "single",
+            "options": [
+                {
+                    "title": "1 living room",
+                    "value": 50
+                },
+                {
+                    "title": "2 living room",
+                    "value": 100
+                },
+                {
+                    "title": "3 living room",
+                    "value": 150
+                }
+            ]
+        },
+        {
+            "title": "Number of Bathrooms?",
+            "type": "single",
+            "options": [
+                {
+                    "title": "1 Bathroom",
+                    "value": 50
+                },
+                {
+                    "title": "2 Bathroom",
+                    "value": 90
+                },
+                {
+                    "title": "2 Bathroom",
+                    "value": 130
+                }
+            ]
+        },
+        {
+            "title": "Do you require carpet steam cleaning? ",
+            "type": "quantity",
+            "options": [
+                {
+                    "title": "No Thanks",
+                    "value": 0
+                },
+                {
+                    "title": "Yes, How many room(s)?",
+                    "value": 30
+                },
+                {
+                    "title": "Yes, How many Hallways(s)?",
+                    "value": 10
+                },
+                {
+                    "title": "Staircase (s)?",
+                    "value": 20
+                }
+            ]
+        },
+        
+
+        {
+            "title": "Additional services",
+            "type": "multi",
+            "options": [
+                {
+                    "title": "No, Thanks.",
+                    "value": 0
+                },
+                {
+                    "title": "Toilet",
+                    "value": 20
+                },{
+                    "title":"Shutters",
+                    "value":15
+                },
+                {
+                    "title": "Blinds",
+                    "value": 12
+                },
+                {
+                    "title": "Standard Utility Room",
+                    "value": 20
+                },
+                {
+                    "title":"Standard Apartment Balcony ",
+                    "value":20
+                },
+                {
+                    "title":"Standard One Space Car Garage",
+                    "value":30
+                }
+            ]
+        },
+        {
+            "title": "Do you require Window cleaning?",
+            "type": "multi",
+            "options": [
+                {
+                    "title": "Internal Only (Free)",
+                    "value": 0
+                },
+                {
+                    "title": "Externally 1 - 5 windows (up to the 2nd floor level)",
+                    "value": 60
+                },{
+                    "title":"Externally 6 - 10 windows (up to the 2nd floor level)",
+                    "value":120
+                }
+            ]
+        },
+        {
+            "title": "Do you require upholstery cleaning?",
+            "type": "multi",
+            "options": [
+                {
+                    "title": "No, Thanks.",
+                    "value": 0
+                },
+                {
+                    "title": "Dining chairs",
+                    "value": 10
+                },{
+                    "title":"Arm chairs",
+                    "value":25
+                },
+                {
+                    "title": "2 seater sofa",
+                    "value": 30
+                },
+                {
+                    "title": "3 seater sofa",
+                    "value": 35
+                },
+                {
+                    "title":"L-shaped sofa",
+                    "value":55
+                },
+                {
+                    "title":"Mattress - Single",
+                    "value":20
+                },
+                {
+                    "title": "Mattress - Double",
+                    "value": 30
+                },{
+                    "title":"Mattress - king",
+                    "value":50
+                },
+                {
+                    "title": "Rug - Small",
+                    "value": 30
+                },
+                {
+                    "title": "Rug - medium",
+                    "value": 40
+                },
+                {
+                    "title": "Rug - Large",
+                    "value": 60
+                }
+              
+            ]
+        }
+    ]
+}

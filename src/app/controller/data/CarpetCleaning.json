@@ -1,0 +1,138 @@
+{
+    "name": "Capet Steam Cleaning",
+    "questions": [
+        {
+            "title": "What is the type of the property? ",
+            "type": "single",
+            "options": [
+                {
+                    "title": "House",
+                    "value": 0
+                },
+                {
+                    "title": "Flat",
+                    "value": 0
+                }
+            ]
+        },
+        
+
+       
+        {
+            "title": "Please select the arears that need carpet/rug cleaning?",
+            "type": "multi",
+            "options": [
+                {
+                    "title": "Bedroom(s)",
+                    "value": 70
+                },
+                {
+                    "title": "Living Room(s)",
+                    "value": 70
+                },{
+                    "title":"Hallway(s)",
+                    "value":30
+                },
+                {
+                    "title": "Staircase (s)",
+                    "value": 60
+                },
+                {
+                    "title": "Lounge (s)",
+                    "value": 60
+                },{
+                    "title":"Small - Rug",
+                    "value":50
+                },
+                {
+                    "title": "Medium - Rug",
+                    "value": 60
+                },{
+                    "title":"Large - Rug",
+                    "value":70
+                }
+              
+            ]
+        },
+        {
+            "title": "Do you require upholstery cleaning?",
+            "type": "multi",
+            "options": [
+                {
+                    "title": "No, Thanks.",
+                    "value": 0
+                },
+                {
+                    "title": "Dining chairs",
+                    "value": 10
+                },{
+                    "title":"Arm chairs",
+                    "value":25
+                },
+                {
+                    "title": "2 seater sofa",
+                    "value": 30
+                },
+                {
+                    "title": "3 seater sofa",
+                    "value": 35
+                },
+                {
+                    "title":"L-shaped sofa",
+                    "value":55
+                },
+                {
+                    "title":"Mattress - Single",
+                    "value":20
+                },
+                {
+                    "title": "Mattress - Double",
+                    "value": 30
+                }
+                ,{
+                    "title":"Mattress - king",
+                    "value":50
+                },
+                {
+                    "title": "Rug - Small",
+                    "value": 40
+                },
+                {
+                    "title": "Rug - Large",
+                    "value": 60
+                }
+              
+            ]
+        },
+        {
+            "title": "You might also need: ",
+            "type": "multi",
+            "options": [
+                {
+                    "title": "No, Thanks.",
+                    "value": 0
+                },
+                {
+                    "title": "Single oven Cleaning",
+                    "value": 50
+                },
+                {
+                    "title": "Double Oven Cleaning",
+                    "value": 80
+                },
+                {
+                    "title": "Microwave",
+                    "value": 15
+                },
+                {
+                    "title": "Fridge",
+                    "value": 30
+                },
+                {
+                    "title": "American Fridge",
+                    "value": 60
+                }
+            ]
+        }
+    ]
+}

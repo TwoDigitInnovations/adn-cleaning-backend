@@ -1,0 +1,116 @@
+{
+    "name": "End of Tenancy Cleaning",
+    "questions": [
+        {
+            "title": "What type of material is your item ?",
+            "type": "single",
+            "options": [
+                {
+                    "title": "Synthetic ( microfiber, wool, etc.)",
+                    "value": 0
+                },
+                {
+                    "title": "Delicate ( cotton, suede, plush, etc.)",
+                    "value": 0
+                }
+            ]
+        },
+        {
+            "title": "Please choose your item? ",
+            "type": "multi",
+            "options": [
+                {
+                    "title": "No, Thanks.",
+                    "value": 0
+                },
+                {
+                    "title": "Dining chairs",
+                    "value": 50
+                },{
+                    "title":"Arm chairs",
+                    "value":50
+                },
+                {
+                    "title": "2 seater sofa",
+                    "value": 60
+                },
+                {
+                    "title": "3 seater sofa",
+                    "value": 80
+                },
+                {
+                    "title":"L-shaped sofa",
+                    "value":100
+                },
+                {
+                    "title":"Mattress - Single",
+                    "value":40
+                },
+                {
+                    "title": "Mattress - Double",
+                    "value": 60
+                }
+                ,{
+                    "title":"Mattress - king",
+                    "value":80
+                },
+                {
+                    "title": "Rug - Small",
+                    "value": 60
+                },
+                {
+                    "title": "Rug - medium",
+                    "value": 80
+                },
+                {
+                    "title": "Rug - Large",
+                    "value": 120
+                },
+                {
+                    "title": "Curtains Half par",
+                    "value": 40
+                },
+                {
+                    "title": "Curtains Full lenght pair",
+                    "value": 70
+                }
+              
+            ]
+        },
+        {
+            "title": "Please select the arears that need carpet/rug cleaning?",
+            "type": "multi",
+            "options": [
+                {
+                    "title": "Bedroom(s)",
+                    "value": 70
+                },
+                {
+                    "title": "Living Room(s)",
+                    "value": 70
+                },{
+                    "title":"Hallway(s)",
+                    "value":30
+                },
+                {
+                    "title": "Staircase (s)",
+                    "value": 60
+                },
+             
+                {
+                    "title":"Small - Rug",
+                    "value":50
+                },
+                {
+                    "title": "Medium - Rug",
+                    "value": 60
+                },{
+                    "title":"Large - Rug",
+                    "value":70
+                }
+              
+            ]
+        }
+       
+    ]
+}
