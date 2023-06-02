@@ -69,8 +69,23 @@ module.exports = {
 
   getBookingById: async (req, res) => {
     try {
+      const sd = new Date();
       const booking = await Booking.find({
         booking_for: req?.user?.id,
+        "slot.date": { $gte: sd },
+      }).populate("booking_for", "username email");
+      return response.ok(res, { booking });
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  getBookingHistory: async (req, res) => {
+    try {
+      const sd = new Date();
+      const booking = await Booking.find({
+        booking_for: req?.user?.id,
+        "slot.date": { $lte: sd },
       }).populate("booking_for", "username email");
       return response.ok(res, { booking });
     } catch (error) {

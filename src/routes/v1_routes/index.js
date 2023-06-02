@@ -54,5 +54,10 @@ router.get(
   isAuthenticated(["USER", "ADMIN"]),
   service.getBookingById
 );
+router.get(
+  "/user/history",
+  isAuthenticated(["USER", "ADMIN"]),
+  service.getBookingHistory
+);
 
 module.exports = router;
