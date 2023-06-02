@@ -26,12 +26,24 @@ router.get("/get-getInTouch", user.getGetInTouch);
 
 //blogs
 router.get("/getblogcategory", blog.getBloggCategory);
-router.post("/create-blog", blog.createBlog);
+router.post(
+  "/create-blog",
+  isAuthenticated(["USER", "ADMIN"]),
+  blog.createBlog
+);
 router.get("/get-blog", blog.getBlog);
-router.post("/update-blog", blog.updateBlog);
+router.post(
+  "/update-blog",
+  isAuthenticated(["USER", "ADMIN"]),
+  blog.updateBlog
+);
 router.post("/getBlogById", blog.getBlogById);
 router.post("/getBlogByCategory", blog.getBlogByCategory);
-router.delete("/delete-blog", blog.deleteBlog);
+router.delete(
+  "/delete-blog",
+  isAuthenticated(["USER", "ADMIN"]),
+  blog.deleteBlog
+);
 
 // Booking
 router.get("/service/available/:zip", service.serviceAvailable);

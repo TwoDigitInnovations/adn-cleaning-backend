@@ -31,6 +31,7 @@ module.exports = {
   createBlog: async (req, res) => {
     try {
       const payload = req?.body || {};
+      payload.posted_by = req.user.id;
       let blog = new Blog(payload);
       const blg = await blog.save();
       return response.ok(res, blg);
