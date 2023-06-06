@@ -71,5 +71,16 @@ router.get(
   isAuthenticated(["USER", "ADMIN"]),
   service.getBookingHistory
 );
+router.post(
+  "/admin/reject",
+  isAuthenticated(["USER", "ADMIN"]),
+  service.rejectBooking
+);
+
+router.post(
+  "/user/booking-update",
+  isAuthenticated(["USER", "ADMIN"]),
+  service.updateBooking
+);
 
 module.exports = router;

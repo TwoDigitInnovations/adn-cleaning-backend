@@ -16,8 +16,6 @@ module.exports = {
   },
   getServices: async (req, res) => {
     try {
-      // const service = req.params["service"];
-
       fs.readFile(
         __dirname + `/data/allServices.json`,
         "utf-8",
@@ -33,7 +31,6 @@ module.exports = {
   getServiceQuestions: async (req, res) => {
     try {
       const service = req.params["service"];
-      // const service = "a";
       fs.readFile(__dirname + `/data/${service}.json`, "utf-8", (err, data) => {
         return response.ok(res, { service: JSON.parse(data) });
       });
@@ -88,6 +85,27 @@ module.exports = {
         "slot.date": { $lte: sd },
       }).populate("booking_for", "username email");
       return response.ok(res, { booking });
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  updateBooking: async (req, res) => {
+    const payload = req?.body || {};
+    try {
+      await Booking.findByIdAndUpdate(payload.id, payload);
+      return response.ok(res, { message: "Booking updated successfully" });
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  rejectBooking: async (req, res) => {
+    try {
+      await Booking.findByIdAndUpdate(req?.body?.id, {
+        active: false,
+      });
+      return response.ok(res, { message: "Booking rejected successfully" });
     } catch (error) {
       return response.error(res, error);
     }

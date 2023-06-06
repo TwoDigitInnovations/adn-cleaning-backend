@@ -28,6 +28,13 @@ const bookingSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  fullObj: {
+    type: String,
+  },
+  active: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 bookingSchema.set("toJSON", {
