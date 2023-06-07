@@ -304,9 +304,16 @@ module.exports = {
   addNewsLetter: async (req, res) => {
     try {
       const payload = req?.body || {};
-      let news = new Newsletter(payload);
-      const newsl = await news.save();
-      return response.ok(res, newsl);
+      const u = await Newsletter.find(payload);
+      if (u.length > 0) {
+        return response.conflict(res, {
+          message: "Email already exists.",
+        });
+      } else {
+        let news = new Newsletter(payload);
+        const newsl = await news.save();
+        return response.ok(res, newsl);
+      }
     } catch (error) {
       return response.error(res, error);
     }
