@@ -83,4 +83,8 @@ router.post(
   service.updateBooking
 );
 
+router.post("/add-subscriber", user.addNewsLetter);
+
+router.get("/get-subscriber", user.getNewsLetter);
+
 module.exports = router;

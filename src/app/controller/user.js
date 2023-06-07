@@ -9,6 +9,7 @@ const User = mongoose.model("User");
 const Verification = mongoose.model("Verification");
 const Notification = mongoose.model("Notification");
 const Getintouch = mongoose.model("Getintouch");
+const Newsletter = mongoose.model("Newsletter");
 
 module.exports = {
   // login controller
@@ -295,6 +296,27 @@ module.exports = {
         message: "File uploaded.",
         file: `${process.env.ASSET_ROOT}/${key}`,
       });
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  addNewsLetter: async (req, res) => {
+    try {
+      const payload = req?.body || {};
+      let news = new Newsletter(payload);
+      const newsl = await news.save();
+      return response.ok(res, newsl);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  getNewsLetter: async (req, res) => {
+    try {
+      let news = await Newsletter.find();
+
+      return response.ok(res, news);
     } catch (error) {
       return response.error(res, error);
     }
