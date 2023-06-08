@@ -328,4 +328,13 @@ module.exports = {
       return response.error(res, error);
     }
   },
+
+  getCleaners: async (req, res) => {
+    try {
+      let u = await User.find({ type: "CLEANER" });
+      return response.ok(res, u);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
 };

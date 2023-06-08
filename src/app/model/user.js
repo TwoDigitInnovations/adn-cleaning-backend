@@ -51,7 +51,7 @@ const userSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ["USER", "ADMIN"],
+      enum: ["USER", "ADMIN", "CLEANER"],
       default: "USER",
     },
   },

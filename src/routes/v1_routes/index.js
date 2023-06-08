@@ -24,6 +24,8 @@ router.post(
 router.post("/getInTouch", user.createGetInTouch);
 router.get("/get-getInTouch", user.getGetInTouch);
 
+router.get("/get-cleaners", user.getCleaners);
+
 //blogs
 router.get("/getblogcategory", blog.getBloggCategory);
 router.post(
