@@ -41,10 +41,23 @@ module.exports = {
   createBooking: async (req, res) => {
     try {
       const details = req.body;
-      details.booking_for = req.user.id;
-      const booking = new Booking(details);
-      await booking.save();
-      return response.ok(res, { message: "Booking created." });
+      const book = await Booking.find({
+        booking_for: req?.user?.id,
+        service_id: details.service_id,
+        "slot.date": details?.slot?.date,
+        "slot.time": details?.slot?.time,
+      });
+
+      if (book.length === 0) {
+        details.booking_for = req.user.id;
+        const booking = new Booking(details);
+        await booking.save();
+        return response.ok(res, { message: "Booking created." });
+      } else {
+        return response.conflict(res, {
+          message: "Booking already exists on this slot.",
+        });
+      }
     } catch (error) {
       return response.error(res, error);
     }
