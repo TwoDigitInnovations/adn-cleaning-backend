@@ -1,0 +1,100 @@
+{
+    "cities":[
+        {
+            "city": "Beckton",
+            "code": "E67FB"
+          },
+          {
+            "city": "Canning Town",
+            "code": "743329"
+          },
+          {
+            "city": "Custom House",
+            "code": "E65LT"
+          },
+          {
+            "city": "Cyprus",
+            "code": "E65NP"
+          },
+          {
+            "city": "East Ham",
+            "code": "E61BB"
+          },
+          {
+            "city": "East Village",
+            "code": "10003"
+          },
+          {
+            "city": "Forest Gate",
+            "code": "E70AT"
+          },
+          {
+            "city": "Little Ilford",
+            "code": "E125AE"
+          },
+          {
+            "city": "Manor Park",
+            "code": "E125BH"
+          },
+          {
+            "city": "Maryland",
+            "code": "21105"
+          },
+          {
+            "city": "Mill Meads",
+            "code": "E3E15"
+          },
+          {
+            "city": "North Woolwich (/ˈwʊlɪtʃ/ or /ˈwʊlɪdʒ/)",
+            "code": "E162LH"
+          },
+          {
+            "city": "Plaistow (/ˈplɑːstoʊ/)",
+            "code": "E130AE"
+          },
+          {
+            "city": "Plashet",
+            "code": "E130QA"
+          },
+          {
+            "city": "Silvertown",
+            "code": "E161EA"
+          },
+          {
+            "city": "Stratford",
+            "code": "E152FR"
+          },
+          {
+            "city": "Stratford City",
+            "code": "E15E20"
+          },
+          {
+            "city": "Stratford Marsh",
+            "code": "GL560FR"
+          },
+          {
+            "city": "Stratford New Town",
+            "code": "E201AA"
+          },
+          {
+            "city": "Temple Mills",
+            "code": "E10E20"
+          },
+          {
+            "city": "Upton",
+            "code": "01568"
+          },
+          {
+            "city": "Upton Park",
+            "code": "E130RD"
+          },
+          {
+            "city": "Wallend",
+            "code": "2287"
+          },
+          {
+            "city": "West Ham",
+            "code": "E130NP"
+          }
+    ]
+}

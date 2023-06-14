@@ -50,6 +50,7 @@ router.delete(
 // Booking
 router.get("/service/available/:zip", service.serviceAvailable);
 router.get("/service/allservices", service.getServices);
+router.get("/get-cities", service.getCities);
 router.get("/service/questions/:service", service.getServiceQuestions);
 router.post(
   "/service/booking",

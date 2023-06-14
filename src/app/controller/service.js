@@ -28,6 +28,16 @@ module.exports = {
     }
   },
 
+  getCities: async (req, res) => {
+    try {
+      fs.readFile(__dirname + `/data/cities.json`, "utf-8", (err, data) => {
+        return response.ok(res, JSON.parse(data));
+      });
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
   getServiceQuestions: async (req, res) => {
     try {
       const service = req.params["service"];
