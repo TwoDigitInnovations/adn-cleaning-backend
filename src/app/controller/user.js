@@ -322,7 +322,6 @@ module.exports = {
   getNewsLetter: async (req, res) => {
     try {
       let news = await Newsletter.find();
-
       return response.ok(res, news);
     } catch (error) {
       return response.error(res, error);

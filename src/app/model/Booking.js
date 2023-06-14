@@ -38,6 +38,18 @@ const bookingSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  applicant: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+  invited: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 bookingSchema.set("toJSON", {

@@ -7,6 +7,7 @@
         { "label": "Oven Cleaning","value":"OvenCleaning","id":5 },
         { "label": "Carpet Cleaning","value":"CarpetCleaning" ,"id":6},
         { "label": "Upholstery Cleaning","value":"UpholsteryCleaning","id":7 },
-        { "label": "Commercial Cleaning","value":"CommerciaCleaning" ,"id":8}
+        { "label": "Disinfection Cleaning","value":"CommerciaCleaning" ,"id":8},
+        {"label": "Regular Cleaning","value":"RegularCleaning","id":9}
      ]
 }
