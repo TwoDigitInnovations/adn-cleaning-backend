@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const response = require("./../responses");
 const Zip = mongoose.model("Zip");
 const Booking = mongoose.model("Booking");
+const JobInvite = mongoose.model("JobInvite");
+
 const fs = require("fs");
 
 module.exports = {
@@ -118,6 +120,45 @@ module.exports = {
     try {
       await Booking.findByIdAndUpdate(payload.id, payload);
       return response.ok(res, { message: "Booking updated successfully" });
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  jobinvite: async (req, res) => {
+    const payload = req?.body || {};
+    try {
+      await Booking.findByIdAndUpdate(payload.id, { invited: payload.invited });
+      for (let i = 0; i < payload.invited.length; i++) {
+        let JobIn = await JobInvite.create({
+          invited: payload.invited[i],
+          job: payload.id,
+          by: payload.posted_by,
+        });
+        // notification.push(
+        //   {
+        //     to: jobDetails.staff[i],
+        //     from: job.posted_by,
+        //     content: `You have been invited by ${user.username} for a job.`,
+        //   },
+        //   JobIn._id
+        // );
+        await JobIn.save();
+      }
+
+      return response.ok(res, { message: "Cleaner invited successfully" });
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  getjobinviteByUser: async (req, res) => {
+    const payload = req?.body || {};
+    try {
+      const jobs = await JobInvite.find({ invited: req?.user?.id }).populate(
+        "job"
+      );
+      return response.ok(res, jobs);
     } catch (error) {
       return response.error(res, error);
     }

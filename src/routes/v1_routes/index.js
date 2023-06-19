@@ -86,6 +86,18 @@ router.post(
   service.updateBooking
 );
 
+router.post(
+  "/user/invite",
+  isAuthenticated(["USER", "ADMIN"]),
+  service.jobinvite
+);
+
+router.get(
+  "/user/getinvite",
+  isAuthenticated(["USER", "ADMIN", "CLEANER"]),
+  service.getjobinviteByUser
+);
+
 router.post("/add-subscriber", user.addNewsLetter);
 
 router.get("/get-subscriber", user.getNewsLetter);
