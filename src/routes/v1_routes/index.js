@@ -88,19 +88,19 @@ router.post(
 
 router.post(
   "/user/invite",
-  isAuthenticated(["USER", "ADMIN"]),
+  isAuthenticated(["USER", "ADMIN", "CLEANER"]),
   service.jobinvite
 );
 
 router.post(
   "/user/comfirmJobs",
-  isAuthenticated(["USER", "ADMIN"]),
+  isAuthenticated(["USER", "ADMIN", "CLEANER"]),
   service.getComFirmJob
 );
 
 router.post(
   "/user/job-accept-reject",
-  isAuthenticated(["USER", "ADMIN"]),
+  isAuthenticated(["USER", "ADMIN", "CLEANER"]),
   service.jobAcceptReject
 );
 
