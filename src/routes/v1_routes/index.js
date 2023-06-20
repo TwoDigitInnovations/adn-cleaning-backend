@@ -92,6 +92,12 @@ router.post(
   service.jobinvite
 );
 
+router.post(
+  "/user/job-accept-reject",
+  isAuthenticated(["USER", "ADMIN"]),
+  service.jobAcceptReject
+);
+
 router.get(
   "/user/getinvite",
   isAuthenticated(["USER", "ADMIN", "CLEANER"]),

@@ -155,9 +155,45 @@ module.exports = {
   getjobinviteByUser: async (req, res) => {
     const payload = req?.body || {};
     try {
-      const jobs = await JobInvite.find({ invited: req?.user?.id }).populate(
-        "job"
-      );
+      const jobs = await JobInvite.find({
+        invited: req?.user?.id,
+        status: "PENDING",
+      }).populate("job");
+      return response.ok(res, jobs);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  getComFirmJob: async (req, res) => {
+    const payload = req?.body || {};
+    try {
+      const jobs = await JobInvite.find({
+        invited: req?.user?.id,
+        status: "ACCEPTED",
+      }).populate("job");
+      return response.ok(res, jobs);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  jobAcceptReject: async (req, res) => {
+    const payload = req?.body || {};
+    try {
+      const jobs = await JobInvite.findByIdAndUpdate(payload?.id, {
+        status: payload.status,
+      }).populate("job");
+      if (payload.status === "ACCEPTED") {
+        await Booking.findByIdAndUpdate(
+          jobs?.job?._id,
+          { applicant: [...jobs?.job.applicant, req.user.id] },
+          {
+            new: true,
+            upsert: true,
+          }
+        );
+      }
       return response.ok(res, jobs);
     } catch (error) {
       return response.error(res, error);
