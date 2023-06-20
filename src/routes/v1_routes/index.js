@@ -93,6 +93,12 @@ router.post(
 );
 
 router.post(
+  "/user/comfirmJobs",
+  isAuthenticated(["USER", "ADMIN"]),
+  service.getComFirmJob
+);
+
+router.post(
   "/user/job-accept-reject",
   isAuthenticated(["USER", "ADMIN"]),
   service.jobAcceptReject
