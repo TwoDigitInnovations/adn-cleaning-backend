@@ -54,6 +54,9 @@ const userSchema = new mongoose.Schema(
       enum: ["USER", "ADMIN", "CLEANER"],
       default: "USER",
     },
+    profile: {
+      type: String,
+    },
   },
   {
     timestamps: true,
