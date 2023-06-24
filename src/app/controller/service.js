@@ -102,6 +102,19 @@ module.exports = {
     }
   },
 
+  getBookingById: async (req, res) => {
+    try {
+      const sd = new Date();
+      const booking = await Booking.find({
+        booking_for: req?.user?.id,
+        "slot.date": { $gte: sd },
+      }).populate("booking_for", "username email");
+      return response.ok(res, { booking });
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
   getBookingHistory: async (req, res) => {
     try {
       const sd = new Date();
@@ -152,14 +165,44 @@ module.exports = {
     }
   },
 
+  userBookingHistory: async (req, res) => {
+    try {
+      const sd = new Date();
+      const bookings = await Booking.find({
+        $or: [
+          { applicant: { $in: [req?.user?.id] } },
+          { invited: { $in: [req?.user?.id] } },
+        ],
+        "slot.date": { $lte: sd },
+      }).populate("applicant invited", "_id username email");
+      return response.ok(res, bookings);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
   getjobinviteByUser: async (req, res) => {
     const payload = req?.body || {};
     try {
+      const sd = new Date();
+      const bookings = await Booking.find({
+        "slot.start_date": { $gte: sd },
+        invited: { $in: [req?.user?.id] },
+      });
       const jobs = await JobInvite.find({
         invited: req?.user?.id,
         status: "PENDING",
       }).populate("job");
-      return response.ok(res, jobs);
+      const invitedJobs = [];
+      bookings.forEach((item) => {
+        jobs.forEach((ele) => {
+          ele.job = item;
+          if (item._id.toString() === ele.job._id.toString()) {
+            invitedJobs.push(ele);
+          }
+        });
+      });
+      return response.ok(res, invitedJobs);
     } catch (error) {
       return response.error(res, error);
     }
@@ -168,11 +211,27 @@ module.exports = {
   getComFirmJob: async (req, res) => {
     const payload = req?.body || {};
     try {
+      const sd = new Date();
+      const bookings = await Booking.find({
+        applicant: { $in: [req?.user?.id] },
+        "slot.start_date": { $gte: sd },
+      }).populate("applicant", "_id username email");
       const jobs = await JobInvite.find({
         invited: req?.user?.id,
         status: "ACCEPTED",
-      }).populate("job");
-      return response.ok(res, jobs);
+      })
+        .populate("job")
+        .populate("job.applicant");
+      const invitedJobs = [];
+      bookings.forEach((item) => {
+        jobs.forEach((ele) => {
+          ele.job = item;
+          if (item._id.toString() === ele.job._id.toString()) {
+            invitedJobs.push(ele);
+          }
+        });
+      });
+      return response.ok(res, invitedJobs);
     } catch (error) {
       return response.error(res, error);
     }
@@ -181,9 +240,17 @@ module.exports = {
   jobAcceptReject: async (req, res) => {
     const payload = req?.body || {};
     try {
-      const jobs = await JobInvite.findByIdAndUpdate(payload?.id, {
-        status: payload.status,
-      }).populate("job");
+      const jobs = await JobInvite.findByIdAndUpdate(
+        payload?.id,
+        {
+          status: payload.status,
+        },
+        {
+          new: true,
+          upsert: true,
+        }
+      ).populate("job");
+      let message = "Job Rejected!!";
       if (payload.status === "ACCEPTED") {
         await Booking.findByIdAndUpdate(
           jobs?.job?._id,
@@ -193,8 +260,10 @@ module.exports = {
             upsert: true,
           }
         );
+        message = "Job Accepted!!";
       }
-      return response.ok(res, jobs);
+
+      return response.ok(res, { message });
     } catch (error) {
       return response.error(res, error);
     }

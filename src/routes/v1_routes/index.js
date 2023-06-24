@@ -98,6 +98,12 @@ router.post(
   service.getComFirmJob
 );
 
+router.get(
+  "/user/jobhistory",
+  isAuthenticated(["USER", "ADMIN", "CLEANER"]),
+  service.userBookingHistory
+);
+
 router.post(
   "/user/job-accept-reject",
   isAuthenticated(["USER", "ADMIN", "CLEANER"]),
