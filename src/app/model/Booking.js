@@ -22,6 +22,8 @@ const bookingSchema = new mongoose.Schema({
   slot: {
     date: { type: Date },
     time: { type: String },
+    start_date: { type: Date },
+    end_date: { type: Date },
   },
   card: {
     type: Object,
