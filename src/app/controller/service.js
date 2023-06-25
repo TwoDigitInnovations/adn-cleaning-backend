@@ -41,6 +41,42 @@ module.exports = {
     }
   },
 
+  getConfig: async (req, res) => {
+    try {
+      return response.ok(res, {
+        title: [
+          // { type: "marriage_security", name: "Marrige Security Guard" },
+          { type: "event_security", name: "Event Security" },
+          { type: "body_guards", name: "Body Guards" },
+          { type: "concierge_receptionist", name: "Concierge/Receptionist" },
+          { type: "door_staff", name: "Door Staff" },
+          { type: "club_security", name: "Club Security" },
+          { type: "canine_dog_handlers", name: "Canine/Dog handlers" },
+          { type: "retail_security", name: "Retail Security" },
+          { type: "key_holdings", name: "Key Holdings" },
+          { type: "carpark_security", name: "Carpark Security" },
+          { type: "access_patrol", name: "Access patrol" },
+          { type: "empty_property", name: "Empty Property" },
+        ],
+        jobType: [
+          { type: "event", name: "Event type" },
+          { type: "job", name: "Job type" },
+          { type: "security", name: "Security type" },
+          { type: "other", name: "Other type" },
+        ],
+        incidenceType: [
+          { type: "thieft", name: "Thieft" },
+          { type: "fight", name: "Fight" },
+          { type: "fire", name: "Fire" },
+          { type: "damage_to_property", name: "Damage To Property" },
+          { type: "others", name: "Others" },
+        ],
+      });
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
   getServiceQuestions: async (req, res) => {
     try {
       const service = req.params["service"];

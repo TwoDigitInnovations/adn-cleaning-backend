@@ -126,6 +126,7 @@ router.get(
   isAuthenticated(["USER", "ADMIN", "CLEANER"]),
   service.getIncidents
 );
+router.get("/user/config", service.getConfig);
 
 router.post("/add-subscriber", user.addNewsLetter);
 
