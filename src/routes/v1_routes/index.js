@@ -18,7 +18,7 @@ router.post("/changePassword", user.changePassword);
 router.get("/profile", isAuthenticated(["USER", "ADMIN", "CLEANER"]), user.me);
 router.post(
   "/updateprofile",
-  isAuthenticated(["USER", "ADMIN"]),
+  isAuthenticated(["USER", "ADMIN", "CLEANER"]),
   user.updateUser
 );
 
