@@ -222,12 +222,27 @@ module.exports = {
 
   userBookingHistory: async (req, res) => {
     try {
-      const sd = new Date();
+      let filter = req.params["filter"];
+      let d = new Date();
+      let de = new Date();
+      let cond = { $lte: de.getTime() };
+      if (filter == "1_WEEK") {
+        cond = { $gte: d.setDate(d.getDate() - 7), $lt: de.getTime() };
+      }
+      if (filter == "2_WEEK") {
+        cond = { $gte: d.setDate(d.getDate() - 14), $lt: de.getTime() };
+      }
+      if (filter == "1_MONTH") {
+        cond = { $gte: d.setMonth(d.getMonth() - 1), $lt: de.getTime() };
+      }
+      if (filter == "1_YEAR") {
+        cond = { $gte: d.setFullYear(d.getFullYear() - 1), $lt: de.getTime() };
+      }
       const jobs = await JobInvite.find({
         invited: req?.user?.id,
       }).populate({
         path: "job",
-        match: { "slot.date": { $lte: sd } },
+        match: { "slot.date": cond },
         select: "-fullObj",
       });
 
@@ -344,7 +359,7 @@ module.exports = {
   getIncidents: async (req, res) => {
     try {
       let incidents = await Incident.find({})
-        .populate("posted_by", "fullName")
+        .populate("posted_by", "username")
         .lean();
       // let ids = incidents.map((i) => i._id);
       // const photos = await Photo.find({ incident_id: { $in: ids } });

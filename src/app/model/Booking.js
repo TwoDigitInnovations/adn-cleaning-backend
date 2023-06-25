@@ -29,6 +29,7 @@ const bookingSchema = new mongoose.Schema({
     type: Object,
     default: {},
   },
+  amount: { type: Number },
   booking_for: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

@@ -99,7 +99,7 @@ router.post(
 );
 
 router.get(
-  "/user/jobhistory",
+  "/user/jobhistory/:filter",
   isAuthenticated(["USER", "ADMIN", "CLEANER"]),
   service.userBookingHistory
 );
