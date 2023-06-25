@@ -230,6 +230,7 @@ module.exports = {
         match: { "slot.date": { $lte: sd } },
         select: "-fullObj",
       });
+
       let job = jobs.filter((f) => f.job !== null);
       return response.ok(res, job);
     } catch (error) {
@@ -251,7 +252,7 @@ module.exports = {
       });
       let job = jobs.filter((f) => f.job !== null);
 
-      return response.ok(res, invitedJobs);
+      return response.ok(res, job);
     } catch (error) {
       return response.error(res, error);
     }
