@@ -116,6 +116,17 @@ router.get(
   service.getjobinviteByUser
 );
 
+router.post(
+  "/user/addreport",
+  isAuthenticated(["USER", "ADMIN", "CLEANER"]),
+  service.addIncident
+);
+router.get(
+  "/user/getreport",
+  isAuthenticated(["USER", "ADMIN", "CLEANER"]),
+  service.getIncidents
+);
+
 router.post("/add-subscriber", user.addNewsLetter);
 
 router.get("/get-subscriber", user.getNewsLetter);

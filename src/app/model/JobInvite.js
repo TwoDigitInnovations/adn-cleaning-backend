@@ -10,6 +10,8 @@ const jobInvites = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Booking",
     },
+    start_date: { type: Date },
+    end_date: { type: Date },
     by: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

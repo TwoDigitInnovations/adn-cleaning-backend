@@ -3,6 +3,7 @@ const response = require("./../responses");
 const Zip = mongoose.model("Zip");
 const Booking = mongoose.model("Booking");
 const JobInvite = mongoose.model("JobInvite");
+const Incident = mongoose.model("Incident");
 
 const fs = require("fs");
 
@@ -80,9 +81,23 @@ module.exports = {
       const ed = new Date(req.query["endDate"]);
       const bookings = await Booking.find({
         "slot.date": { $gte: sd, $lte: ed },
+      }).lean();
+      let invites = await JobInvite.find({
+        job: { $in: bookings.map((j) => j._id) },
       })
         .populate("booking_for", "username email")
         .lean();
+      let obj = {};
+      invites.map((i) => {
+        if (obj[i.job]) {
+          obj[i.job].push(i);
+        } else {
+          obj[i.job] = [i];
+        }
+      });
+      bookings.map((j) => {
+        j.invites = obj[j._id];
+      });
       return response.ok(res, { bookings });
     } catch (error) {
       return response.error(res, error);
@@ -141,12 +156,16 @@ module.exports = {
   jobinvite: async (req, res) => {
     const payload = req?.body || {};
     try {
-      await Booking.findByIdAndUpdate(payload.id, { invited: payload.invited });
+      const job = await Booking.findByIdAndUpdate(payload.id, {
+        invited: payload.invited,
+      });
       for (let i = 0; i < payload.invited.length; i++) {
         let JobIn = await JobInvite.create({
           invited: payload.invited[i],
           job: payload.id,
           by: payload.posted_by,
+          start_date: job.slot.start_date,
+          end_date: job.slot.end_date,
         });
         // notification.push(
         //   {
@@ -168,14 +187,15 @@ module.exports = {
   userBookingHistory: async (req, res) => {
     try {
       const sd = new Date();
-      const bookings = await Booking.find({
-        $or: [
-          { applicant: { $in: [req?.user?.id] } },
-          { invited: { $in: [req?.user?.id] } },
-        ],
-        "slot.date": { $lte: sd },
-      }).populate("applicant invited", "_id username email");
-      return response.ok(res, bookings);
+      const jobs = await JobInvite.find({
+        invited: req?.user?.id,
+      }).populate({
+        path: "job",
+        match: { "slot.date": { $lte: sd } },
+        select: "-fullObj",
+      });
+      let job = jobs.filter((f) => f.job !== null);
+      return response.ok(res, job);
     } catch (error) {
       return response.error(res, error);
     }
@@ -185,23 +205,16 @@ module.exports = {
     const payload = req?.body || {};
     try {
       const sd = new Date();
-      const bookings = await Booking.find({
-        "slot.start_date": { $gte: sd },
-        invited: { $in: [req?.user?.id] },
-      });
       const jobs = await JobInvite.find({
         invited: req?.user?.id,
         status: "PENDING",
-      }).populate("job");
-      const invitedJobs = [];
-      bookings.forEach((item) => {
-        jobs.forEach((ele) => {
-          ele.job = item;
-          if (item._id.toString() === ele.job._id.toString()) {
-            invitedJobs.push(ele);
-          }
-        });
+      }).populate({
+        path: "job",
+        match: { "slot.start_date": { $gte: sd } },
+        select: "-fullObj",
       });
+      let job = jobs.filter((f) => f.job !== null);
+
       return response.ok(res, invitedJobs);
     } catch (error) {
       return response.error(res, error);
@@ -212,26 +225,16 @@ module.exports = {
     const payload = req?.body || {};
     try {
       const sd = new Date();
-      const bookings = await Booking.find({
-        applicant: { $in: [req?.user?.id] },
-        "slot.start_date": { $gte: sd },
-      }).populate("applicant", "_id username email");
       const jobs = await JobInvite.find({
         invited: req?.user?.id,
         status: "ACCEPTED",
-      })
-        .populate("job")
-        .populate("job.applicant");
-      const invitedJobs = [];
-      bookings.forEach((item) => {
-        jobs.forEach((ele) => {
-          ele.job = item;
-          if (item._id.toString() === ele.job._id.toString()) {
-            invitedJobs.push(ele);
-          }
-        });
+      }).populate({
+        path: "job",
+        match: { "slot.start_date": { $gte: sd } },
+        select: "-fullObj",
       });
-      return response.ok(res, invitedJobs);
+      let job = jobs.filter((f) => f.job !== null);
+      return response.ok(res, job);
     } catch (error) {
       return response.error(res, error);
     }
@@ -275,6 +278,49 @@ module.exports = {
         active: false,
       });
       return response.ok(res, { message: "Booking rejected successfully" });
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  addIncident: async (req, res) => {
+    try {
+      const incidentDetails = req.body;
+      const incident = new Incident({
+        title: incidentDetails.title,
+        details: incidentDetails.details,
+        job: incidentDetails.job_id,
+        posted_by: req.user.id,
+      });
+      // if (req.files.length) {
+      //   const files = req.files;
+      //   for (let f = 0; f < files.length; f++) {
+      //     await Photo.create({ key: files[f].key, incident_id: incident._id });
+      //   }
+      // }
+      await incident.save();
+      return response.ok(res, { message: "Incident Added!" });
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+  getIncidents: async (req, res) => {
+    try {
+      let incidents = await Incident.find({})
+        .populate("posted_by", "fullName")
+        .lean();
+      // let ids = incidents.map((i) => i._id);
+      // const photos = await Photo.find({ incident_id: { $in: ids } });
+
+      // incidents.map(async (ele) => {
+      //   ele.url = process.env.ASSET_ROOT;
+      //   ele.photos = photos.filter((f) => {
+      //     ele.image = `${process.env.ASSET_ROOT}/${f.key}`;
+      //     return f.incident_id.toString() === ele._id.toString();
+      //   });
+      // });
+
+      return response.ok(res, { incident: incidents });
     } catch (error) {
       return response.error(res, error);
     }
