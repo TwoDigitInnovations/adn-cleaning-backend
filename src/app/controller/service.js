@@ -117,12 +117,13 @@ module.exports = {
       const ed = new Date(req.query["endDate"]);
       const bookings = await Booking.find({
         "slot.date": { $gte: sd, $lte: ed },
-      }).lean();
-      let invites = await JobInvite.find({
-        job: { $in: bookings.map((j) => j._id) },
       })
         .populate("booking_for", "username email")
         .lean();
+      let invites = await JobInvite.find({
+        job: { $in: bookings.map((j) => j._id) },
+      })
+      .lean();
       let obj = {};
       invites.map((i) => {
         if (obj[i.job]) {
