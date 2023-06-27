@@ -345,7 +345,7 @@ module.exports = {
       })
         .populate({
           path: "invited_for",
-          populate: { path: "job" },
+          populate: { path: "job", select: "-fullObj" },
         })
         .sort({ updatedAt: -1 })
         .lean();
