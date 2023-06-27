@@ -30,6 +30,7 @@ const bookingSchema = new mongoose.Schema({
     default: {},
   },
   amount: { type: Number },
+  offset: { type: Number },
   booking_for: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

@@ -122,8 +122,7 @@ module.exports = {
         .lean();
       let invites = await JobInvite.find({
         job: { $in: bookings.map((j) => j._id) },
-      })
-      .lean();
+      }).lean();
       let obj = {};
       invites.map((i) => {
         if (obj[i.job]) {
@@ -136,19 +135,6 @@ module.exports = {
         j.invites = obj[j._id];
       });
       return response.ok(res, { bookings });
-    } catch (error) {
-      return response.error(res, error);
-    }
-  },
-
-  getBookingById: async (req, res) => {
-    try {
-      const sd = new Date();
-      const booking = await Booking.find({
-        booking_for: req?.user?.id,
-        "slot.date": { $gte: sd },
-      }).populate("booking_for", "username email");
-      return response.ok(res, { booking });
     } catch (error) {
       return response.error(res, error);
     }
@@ -263,10 +249,10 @@ module.exports = {
         status: "PENDING",
       }).populate({
         path: "job",
-        match: { "slot.start_date": { $gte: sd } },
+        match: { "slot.start_date": { $gte: sd.getTime() } },
         select: "-fullObj",
       });
-      let job = jobs.filter((f) => f.job !== null);
+      let job = jobs.filter((f) => f?.job !== null && f?.job?.slot?.start_date);
 
       return response.ok(res, job);
     } catch (error) {
@@ -283,10 +269,10 @@ module.exports = {
         status: "ACCEPTED",
       }).populate({
         path: "job",
-        match: { "slot.start_date": { $gte: sd } },
+        match: { "slot.start_date": { $gte: sd.getTime() } },
         select: "-fullObj",
       });
-      let job = jobs.filter((f) => f.job !== null);
+      let job = jobs.filter((f) => f.job !== null && f?.job?.slot?.start_date);
       return response.ok(res, job);
     } catch (error) {
       return response.error(res, error);
