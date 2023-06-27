@@ -21,6 +21,22 @@ router.post(
   isAuthenticated(["USER", "ADMIN", "CLEANER"]),
   user.updateUser
 );
+router.post(
+  "/profile/changePassword",
+  isAuthenticated(["USER", "ADMIN", "CLEANER"]),
+  user.changePasswordProfile
+);
+
+router.post(
+  "/settings",
+  isAuthenticated(["USER", "CLEANER", "ADMIN"]),
+  user.updateSettings
+);
+router.get(
+  "/settings",
+  isAuthenticated(["USER", "CLEANER", "ADMIN"]),
+  user.getSettings
+);
 
 router.post("/getInTouch", user.createGetInTouch);
 router.get("/get-getInTouch", user.getGetInTouch);
