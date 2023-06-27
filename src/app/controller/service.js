@@ -4,8 +4,10 @@ const Zip = mongoose.model("Zip");
 const Booking = mongoose.model("Booking");
 const JobInvite = mongoose.model("JobInvite");
 const Incident = mongoose.model("Incident");
+const userHelper = require("./../helper/user");
 
 const fs = require("fs");
+const notification = require("../services/notification");
 
 module.exports = {
   serviceAvailable: async (req, res) => {
@@ -182,6 +184,8 @@ module.exports = {
       const job = await Booking.findByIdAndUpdate(payload.id, {
         invited: payload.invited,
       });
+      const user = await userHelper.find({ _id: job.booking_for }).lean();
+
       for (let i = 0; i < payload.invited.length; i++) {
         let JobIn = await JobInvite.create({
           invited: payload.invited[i],
@@ -190,14 +194,14 @@ module.exports = {
           start_date: job.slot.start_date,
           end_date: job.slot.end_date,
         });
-        // notification.push(
-        //   {
-        //     to: jobDetails.staff[i],
-        //     from: job.posted_by,
-        //     content: `You have been invited by ${user.username} for a job.`,
-        //   },
-        //   JobIn._id
-        // );
+        notification.push(
+          {
+            to: payload.invited[i],
+            from: job.booking_for,
+            content: `You have been invited by ${user.username} for a job.`,
+          },
+          JobIn._id
+        );
         await JobIn.save();
       }
 

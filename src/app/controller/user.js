@@ -336,4 +336,36 @@ module.exports = {
       return response.error(res, error);
     }
   },
+
+  notification: async (req, res) => {
+    try {
+      let notifications = await Notification.find({
+        for: req.user.id,
+        deleted: { $ne: true },
+      })
+        .populate({
+          path: "invited_for",
+          populate: { path: "job" },
+        })
+        .sort({ updatedAt: -1 })
+        .lean();
+      return response.ok(res, { notifications });
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+  deleteNotification: async (req, res) => {
+    try {
+      let notification_id = req.params["not_id"];
+      await Notification.updateMany(
+        notification_id
+          ? { for: req.user.id, _id: notification_id }
+          : { for: req.user.id },
+        { deleted: true }
+      );
+      return response.ok(res, { message: "Notification(s) deleted!" });
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
 };

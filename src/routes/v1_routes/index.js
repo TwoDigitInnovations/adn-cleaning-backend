@@ -149,4 +149,15 @@ router.post("/add-subscriber", user.addNewsLetter);
 
 router.get("/get-subscriber", user.getNewsLetter);
 
+router.get(
+  "/notification",
+  isAuthenticated(["USER", "CLEANER"]),
+  user.notification
+);
+router.delete(
+  "/notification/:not_id?",
+  isAuthenticated(["USER", "CLEANER"]),
+  user.deleteNotification
+);
+
 module.exports = router;
