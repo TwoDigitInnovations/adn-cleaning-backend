@@ -12,9 +12,23 @@ const notification = require("../services/notification");
 module.exports = {
   serviceAvailable: async (req, res) => {
     try {
-      const zip = Zip.findOne({ code: req.params["zip"] }).lean();
-
-      return response.ok(res, { available: true, message: "available" });
+      let data = [];
+      fs.readFile(
+        __dirname + `/data/allServices.json`,
+        "utf-8",
+        (err, data) => {
+          data = JSON.parse(data);
+        }
+      );
+      const zip = data.find(
+        (f) => f.code.toLowerCase() === req.params["zip"].toLowerCase()
+      );
+      if (zip) {
+        return response.ok(res, { available: true, message: "available" });
+      } else {
+        return response.ok(res, { available: false, message: "unavailable" });
+      }
+      // const zip = Zip.findOne({ code: req.params["zip"] }).lean();
     } catch (error) {
       return response.error(res, error);
     }
