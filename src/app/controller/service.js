@@ -211,11 +211,13 @@ module.exports = {
           end_date: job.slot.end_date,
         });
         notification.push(
-          {
-            to: payload.invited[i],
-            from: job.booking_for,
-            content: `You have been invited by ${user.username} for a job.`,
-          },
+          payload.invited[i],
+          // {
+          //   to: payload.invited[i],
+          //   from: payload.posted_by,
+          //   content: `You have been invited by ${user.username} for a job.`,
+          // },
+          `You have been invited by ${user.username} for a job.`,
           JobIn._id
         );
         await JobIn.save();
