@@ -140,7 +140,9 @@ module.exports = {
         .lean();
       let invites = await JobInvite.find({
         job: { $in: bookings.map((j) => j._id) },
-      }).lean();
+      })
+        .populate("invited", "_id username fullName email")
+        .lean();
       let obj = {};
       invites.map((i) => {
         if (obj[i.job]) {
