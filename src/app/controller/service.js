@@ -199,31 +199,33 @@ module.exports = {
 
   jobinvite: async (req, res) => {
     const payload = req?.body || {};
+    let job = await Booking.findById(payload.id);
+    if (!job)
+      return response.notFound(res, { message: "Booking does not exist." });
+    let set = new Set(job.invited.map((a) => a.toString()));
+
     try {
-      const job = await Booking.findByIdAndUpdate(payload.id, {
-        invited: payload.invited,
-      });
       const user = await userHelper.find({ _id: job.booking_for }).lean();
 
       for (let i = 0; i < payload.invited.length; i++) {
-        let JobIn = await JobInvite.create({
-          invited: payload.invited[i],
-          job: payload.id,
-          by: payload.posted_by,
-          start_date: job.slot.start_date,
-          end_date: job.slot.end_date,
-        });
-        notification.push(
-          payload.invited[i],
-          // {
-          //   to: payload.invited[i],
-          //   from: payload.posted_by,
-          //   content: `You have been invited by ${user.username} for a job.`,
-          // },
-          `You have been invited by ${user.username} for a job.`,
-          JobIn._id
-        );
-        await JobIn.save();
+        if (!set.has(payload.invited[i])) {
+          const job = await Booking.findByIdAndUpdate(payload.id, {
+            $push: { invited: jobworker },
+          });
+          let JobIn = await JobInvite.create({
+            invited: payload.invited[i],
+            job: payload.id,
+            by: payload.posted_by,
+            start_date: job.slot.start_date,
+            end_date: job.slot.end_date,
+          });
+          notification.push(
+            payload.invited[i],
+            `You have been invited by ${user.username} for a job.`,
+            JobIn._id
+          );
+          await JobIn.save();
+        }
       }
 
       return response.ok(res, { message: "Cleaner invited successfully" });
@@ -321,7 +323,7 @@ module.exports = {
 
       let user = await userHelper.find({ _id: jobs.invited }).lean();
 
-      let msg = `You have been rejected by ${user.username} for a job.`;
+      let msg = `${user.username} has rejected the below job..`;
       if (payload.status === "ACCEPTED") {
         await Booking.findByIdAndUpdate(
           jobs?.job?._id,
@@ -332,14 +334,14 @@ module.exports = {
           }
         );
         message = "Job Accepted!!";
-        msg = `You have been accepted by ${user.username} for a job.`;
+        msg = `${user.username} has accepted the below job..`;
       }
-      await Notification.create({
+      const noti = await Notification.create({
         for: jobs.by,
         message: msg,
         invited_for: jobs._id,
       });
-
+      console.log(noti);
       return response.ok(res, { message });
     } catch (error) {
       return response.error(res, error);
