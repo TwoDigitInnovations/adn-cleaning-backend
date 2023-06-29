@@ -51,8 +51,8 @@ module.exports = {
 
   getCities: async (req, res) => {
     try {
-      fs.readFile(__dirname + `/data/cities.json`, "utf-8", (err, data) => {
-        return response.ok(res, JSON.parse(data));
+      fs.readFile(__dirname + `/data/cities.json`, "utf-8", (err, datas) => {
+        return response.ok(res, JSON.parse(datas));
       });
     } catch (error) {
       return response.error(res, error);

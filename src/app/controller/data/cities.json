@@ -1,5 +1,141 @@
 {
     "cities":[
+         {
+            "city": "East Dulwich",
+            "code": "SE22"
+          },
+          {
+            "city": "Dulwich",
+            "code": "SE19 1HF"
+          },
+          {
+            "city": "West Dulwich",
+            "code": "SE21"
+          },
+          {
+            "city": "Dulwich village",
+            "code": "SE21"
+          },
+          {
+            "city": "Camberwell",
+            "code": "SE154AD"
+          },
+          {
+            "city": "Crystal Palace",
+            "code": "400059"
+          },
+          {
+            "city": "Denmark Hill",
+            "code": "462042"
+          },
+          {
+            "city": "Forest Hill",
+            "code": "SE231AF"
+          },
+          {
+            "city": "Peckham",
+            "code": "SE15"
+          },
+          {
+            "city": "Sydenham Hill",
+            "code": "SE21"
+          },
+          {
+            "city": "Tulse Hill",
+            "code": "SE27"
+          },
+          {
+            "city": "St Albans",
+            "code": "AL11AS"
+          },
+          {
+            "city": "Central London",
+            "code": "E17DA"
+          },
+          {
+            "city": "North London",
+            "code": "N11"
+          },
+          {
+            "city": "South London",
+            "code": "SW17"
+          },
+          {
+            "city": "West London",
+            "code": "W1B"
+          },
+          {
+            "city": "East London",
+            "code": "5208"
+          },
+          {
+            "city": "Watford",
+            "code": "AL23UW"
+          },
+          {
+            "city": "Greenwich",
+            "code": "E140FL"
+          },
+          {
+            "city": "Croydon",
+            "code": "BR33BJ"
+          },
+          {
+            "city": "Kensington & Chelsea",
+            "code": "SW100AB"
+          },
+          {
+            "city": "Bromley",
+            "code": "BR11AA"
+          },
+          {
+            "city": "Islington",
+            "code": "EC1A1AA"
+          },
+          {
+            "city": "Wimbledon",
+            "code": "SW194BH"
+          },
+          {
+            "city": "Barking",
+            "code": "IG12FR"
+          },
+          {
+            "city": "Kingston",
+            "code": "K0H0B9"
+          },
+          {
+            "city": "Fulham",
+            "code": "SW10"
+          },
+          {
+            "city": "Richmond",
+            "code": "23173"
+          },
+          {
+            "city": "Clapham",
+            "code": "Mk41"
+          },
+          {
+            "city": "Romford",
+            "code": "IG74FJ"
+          },
+          {
+            "city": "Ealing",
+            "code": "NW106DJ"
+          },
+          {
+            "city": "Wathamstow",
+            "code": "E106AL"
+          },
+          {
+            "city": "Battersea",
+            "code": "SW111NZ"
+          },
+          {
+            "city": "Canary Wharf",
+            "code": "E145LQ"
+          },
         {
             "city": "Beckton",
             "code": "E67FB"
