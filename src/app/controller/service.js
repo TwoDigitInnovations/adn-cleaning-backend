@@ -5,6 +5,7 @@ const Booking = mongoose.model("Booking");
 const JobInvite = mongoose.model("JobInvite");
 const Incident = mongoose.model("Incident");
 const userHelper = require("./../helper/user");
+const Notification = mongoose.model("Notification");
 
 const fs = require("fs");
 const notification = require("../services/notification");
