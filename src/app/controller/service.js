@@ -317,6 +317,10 @@ module.exports = {
         }
       ).populate("job");
       let message = "Job Rejected!!";
+      invited;
+      let user = await userHelper.find({ _id: jobs.invited }).lean();
+
+      let msg = `You have been rejected by ${user.username} for a job.`;
       if (payload.status === "ACCEPTED") {
         await Booking.findByIdAndUpdate(
           jobs?.job?._id,
@@ -327,7 +331,13 @@ module.exports = {
           }
         );
         message = "Job Accepted!!";
+        msg = `You have been accepted by ${user.username} for a job.`;
       }
+      await Notification.create({
+        for: jobs.by,
+        message: msg,
+        invited_for: jobs._id,
+      });
 
       return response.ok(res, { message });
     } catch (error) {

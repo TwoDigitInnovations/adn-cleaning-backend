@@ -26,7 +26,7 @@ async function sendNotification(content, player_ids) {
     notification.contents = {
       en: content,
     };
-    notification.name = "swiftGaurd";
+    notification.name = "ADN Cleaners service";
     return await client.createNotification(notification);
   } catch (err) {
     console.log("error in send notification", content);
