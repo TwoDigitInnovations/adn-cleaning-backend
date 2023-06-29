@@ -40,11 +40,11 @@ async function findDevices(user) {
 
 module.exports = {
   push: async (user, content, job = null) => {
-    // const player_ids = await findDevices(user);
+    const player_ids = await findDevices(user);
     const notObj = { for: user, message: content };
     if (job) notObj.invited_for = job;
     await Notification.create(notObj);
-    // return sendNotification(content, player_ids);  //pushnotification
+    return sendNotification(content, player_ids); //pushnotification
   },
   notify: async (user, content) => {
     const player_ids = await findDevices(user);
