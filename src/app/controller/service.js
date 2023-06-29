@@ -210,7 +210,7 @@ module.exports = {
       for (let i = 0; i < payload.invited.length; i++) {
         if (!set.has(payload.invited[i])) {
           const job = await Booking.findByIdAndUpdate(payload.id, {
-            $push: { invited: jobworker },
+            $push: { invited: payload.invited[i] },
           });
           let JobIn = await JobInvite.create({
             invited: payload.invited[i],
