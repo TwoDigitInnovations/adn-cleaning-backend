@@ -317,7 +317,7 @@ module.exports = {
         }
       ).populate("job");
       let message = "Job Rejected!!";
-      invited;
+
       let user = await userHelper.find({ _id: jobs.invited }).lean();
 
       let msg = `You have been rejected by ${user.username} for a job.`;
