@@ -5,7 +5,9 @@ const passport = require("passport");
 const jwtService = require("./../services/jwtService");
 const mailNotification = require("./../services/mailNotification");
 const mongoose = require("mongoose");
+
 const User = mongoose.model("User");
+const Device = mongoose.model("Device");
 const Verification = mongoose.model("Verification");
 const Notification = mongoose.model("Notification");
 const Getintouch = mongoose.model("Getintouch");
@@ -22,6 +24,11 @@ module.exports = {
         return response.unAuthorize(res, info);
       }
       //console.log('user=======>>',user);
+      await Device.updateOne(
+        { device_token: req.body.device_token },
+        { $set: { player_id: req.body.player_id, user: user._id } },
+        { upsert: true }
+      );
       let token = await new jwtService().createJwtToken({
         id: user._id,
         user: user.username,
