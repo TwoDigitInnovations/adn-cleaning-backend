@@ -2,9 +2,9 @@
      "services":[
         {"label": "Regular Cleaning","value":"RegularCleaning","id":9},
         { "label": "End of Tenancy","value":"EndofTenancy" ,"id":1},
-        { "label": "Pre Tenancy" ,"value":"PreTenancy","id":2},
-        { "label": "After Builders","value":"AfterBuilders","id":3  },
-        { "label": "One-off Deep Clean" , "value":"Deepclean","id":4},
+        { "label": "Pre Tenancy Cleaning" ,"value":"PreTenancy","id":2},
+        { "label": "After Builders Cleaning","value":"AfterBuilders","id":3  },
+        { "label": "One-off Deep Cleaning" , "value":"Deepclean","id":4},
         { "label": "Oven Cleaning","value":"OvenCleaning","id":5 },
         { "label": "Carpet Cleaning","value":"CarpetCleaning" ,"id":6},
         { "label": "Upholstery Cleaning","value":"UpholsteryCleaning","id":7 },

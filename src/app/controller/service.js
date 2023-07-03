@@ -9,6 +9,7 @@ const Notification = mongoose.model("Notification");
 
 const fs = require("fs");
 const notification = require("../services/notification");
+const moment = require("moment");
 
 module.exports = {
   serviceAvailable: async (req, res) => {
@@ -254,6 +255,7 @@ module.exports = {
       }
       const jobs = await JobInvite.find({
         invited: req?.user?.id,
+        isSubmitted: false,
       }).populate({
         path: "job",
         match: { "slot.date": cond },
@@ -294,6 +296,7 @@ module.exports = {
       const jobs = await JobInvite.find({
         invited: req?.user?.id,
         status: "ACCEPTED",
+        isSubmitted: false,
       }).populate({
         path: "job",
         match: { "slot.start_date": { $gte: sd.getTime() } },
@@ -322,15 +325,19 @@ module.exports = {
   getliveJob: async (req, res) => {
     const payload = req?.body || {};
     try {
-      let d = new Date(new Date().setDate(new Date().getDate + 1));
-      const sd = new Date();
+      let d = new Date(new Date().setDate(new Date().getDate() + 1));
+      let d2 = moment(d).format("YYYY, MM, DD");
+      const sd = moment(new Date()).format("YYYY, MM, DD");
+      console.log(d, sd);
       const jobs = await JobInvite.find({
         invited: req?.user?.id,
         status: "ACCEPTED",
         isSubmitted: false,
       }).populate({
         path: "job",
-        match: { "slot.start_date": { $gte: sd, $lte: d } },
+        match: {
+          "slot.start_date": { $gte: new Date(sd), $lte: new Date(d2) },
+        },
         select: "-fullObj",
       });
       let job = jobs.filter((f) => f.job !== null && f?.job?.slot?.start_date);
