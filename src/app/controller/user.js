@@ -44,6 +44,7 @@ module.exports = {
         isOrganization: user.isOrganization,
         profile: user.profile,
         fullName: user.fullName,
+        available: user.available,
       });
     })(req, res);
   },
