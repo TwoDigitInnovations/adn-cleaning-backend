@@ -121,6 +121,18 @@ router.post(
 );
 
 router.get(
+  "/user/livejobs",
+  isAuthenticated(["USER", "ADMIN", "CLEANER"]),
+  service.getliveJob
+);
+
+router.post(
+  "/user/livejobs/:id",
+  isAuthenticated(["USER", "ADMIN", "CLEANER"]),
+  service.addPhotosAndSubmitted
+);
+
+router.get(
   "/user/jobhistory/:filter",
   isAuthenticated(["USER", "ADMIN", "CLEANER"]),
   service.userBookingHistory

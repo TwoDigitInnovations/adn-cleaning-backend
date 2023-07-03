@@ -306,6 +306,40 @@ module.exports = {
     }
   },
 
+  addPhotosAndSubmitted: async (req, res) => {
+    try {
+      const payload = req?.body || {};
+      const jobs = await JobInvite.findByIdAndUpdate(req.params.id, payload, {
+        new: true,
+        upsert: true,
+      });
+      return response.ok(res, { message: "Submitted successfully" });
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  getliveJob: async (req, res) => {
+    const payload = req?.body || {};
+    try {
+      let d = new Date(new Date().setDate(new Date().getDate + 1));
+      const sd = new Date();
+      const jobs = await JobInvite.find({
+        invited: req?.user?.id,
+        status: "ACCEPTED",
+        isSubmitted: false,
+      }).populate({
+        path: "job",
+        match: { "slot.start_date": { $gte: sd, $lte: d } },
+        select: "-fullObj",
+      });
+      let job = jobs.filter((f) => f.job !== null && f?.job?.slot?.start_date);
+      return response.ok(res, job);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
   jobAcceptReject: async (req, res) => {
     const payload = req?.body || {};
     try {

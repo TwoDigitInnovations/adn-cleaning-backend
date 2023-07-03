@@ -16,6 +16,16 @@ const jobInvites = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    isSubmitted: {
+      type: Boolean,
+      default: false,
+    },
+    before: {
+      type: String,
+    },
+    after: {
+      type: String,
+    },
     status: {
       type: String,
       default: "PENDING",
