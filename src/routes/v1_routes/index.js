@@ -42,6 +42,11 @@ router.post("/getInTouch", user.createGetInTouch);
 router.get("/get-getInTouch", user.getGetInTouch);
 
 router.get("/get-cleaners", user.getCleaners);
+router.post(
+  "/user/available",
+  isAuthenticated(["CLEANER"]),
+  user.forAvailableJob
+);
 
 //blogs
 router.get("/getblogcategory", blog.getBloggCategory);

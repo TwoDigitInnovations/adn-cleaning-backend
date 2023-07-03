@@ -337,7 +337,7 @@ module.exports = {
 
   getCleaners: async (req, res) => {
     try {
-      let u = await User.find({ type: "CLEANER" });
+      let u = await User.find({ type: "CLEANER", available: true });
       return response.ok(res, u);
     } catch (error) {
       return response.error(res, error);
@@ -371,6 +371,17 @@ module.exports = {
         { deleted: true }
       );
       return response.ok(res, { message: "Notification(s) deleted!" });
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  forAvailableJob: async (req, res) => {
+    try {
+      let user = await User.findByIdAndUpdate(req.user.id, {
+        available: req.body.available,
+      });
+      return response.ok(res, { message: "Setting updated" });
     } catch (error) {
       return response.error(res, error);
     }
