@@ -6,6 +6,7 @@ const JobInvite = mongoose.model("JobInvite");
 const Incident = mongoose.model("Incident");
 const userHelper = require("./../helper/user");
 const Notification = mongoose.model("Notification");
+const mailNotification = require("./../services/mailNotification");
 
 const fs = require("fs");
 const notification = require("../services/notification");
@@ -339,9 +340,19 @@ module.exports = {
           "slot.start_date": { $gte: new Date(sd), $lte: new Date(d2) },
         },
         select: "-fullObj",
+        populate: { path: "booking_for", select: "-password -profile " },
       });
       let job = jobs.filter((f) => f.job !== null && f?.job?.slot?.start_date);
       return response.ok(res, job);
+    } catch (error) {
+      return response.error(res, error);
+    }
+  },
+
+  informToUser: async (req, res) => {
+    try {
+      await mailNotification.confirmMail({ email: req.body.email });
+      return response.ok(res, { message: "Informed successfully" });
     } catch (error) {
       return response.error(res, error);
     }

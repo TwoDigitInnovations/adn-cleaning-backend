@@ -47,4 +47,14 @@ module.exports = {
       throw new Error("[passwordChange]Could not send OTP mail");
     }
   },
+
+  confirmMail: async ({ email }) => {
+    try {
+      const html = `<div>We are arrive to your loacation in 20-25 minutes  </div>`;
+      return await sendMail(email, "Comming for work", html);
+    } catch (err) {
+      console.log(err);
+      throw new Error("something went wrong");
+    }
+  },
 };

@@ -132,6 +132,12 @@ router.post(
   service.addPhotosAndSubmitted
 );
 
+router.post(
+  "/user/inform",
+  isAuthenticated(["USER", "ADMIN", "CLEANER"]),
+  service.informToUser
+);
+
 router.get(
   "/user/jobhistory/:filter",
   isAuthenticated(["USER", "ADMIN", "CLEANER"]),
