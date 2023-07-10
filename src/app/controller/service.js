@@ -329,7 +329,7 @@ module.exports = {
       let d = new Date(new Date().setDate(new Date().getDate() + 1));
       let d2 = moment(d).format("YYYY, MM, DD");
       const sd = moment(new Date()).format("YYYY, MM, DD");
-      console.log(d, sd);
+      console.log(d, new Date(sd));
       const jobs = await JobInvite.find({
         invited: req?.user?.id,
         status: "ACCEPTED",
@@ -435,7 +435,7 @@ module.exports = {
   getIncidents: async (req, res) => {
     try {
       let incidents = await Incident.find({})
-        .populate("posted_by", "username")
+        .populate("posted_by job", "-password -fullObj")
         .lean();
       // let ids = incidents.map((i) => i._id);
       // const photos = await Photo.find({ incident_id: { $in: ids } });
