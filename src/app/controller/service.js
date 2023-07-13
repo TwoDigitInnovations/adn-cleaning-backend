@@ -200,20 +200,23 @@ module.exports = {
   },
 
   jobinvite: async (req, res) => {
-    const payload = req?.body || {};
-    let job = await Booking.findById(payload.id);
-    if (!job)
-      return response.notFound(res, { message: "Booking does not exist." });
-    // let set = new Set(job.invited.map((a) => a.toString()));
-
     try {
+      const payload = req?.body || {};
+      let job = await Booking.findById(payload.id);
+      if (!job)
+        return response.notFound(res, { message: "Booking does not exist." });
+      // let set = new Set(job.invited.map((a) => a.toString()));
+      if (job?.invited?.length > 0) {
+        await JobInvite.findOneAndRemove({
+          invited: job?.invited[0],
+          job: payload.id,
+        });
+      }
+
       const user = await userHelper.find({ _id: job.booking_for }).lean();
 
       for (let i = 0; i < payload.invited.length; i++) {
         // if (!set.has(payload.invited[i])) {
-        if (job?.invited?.length > 0) {
-          await JobInvite.findByIdAndRemove(job.invited[0]);
-        }
 
         const job = await Booking.findByIdAndUpdate(payload.id, {
           // $push: { invited: payload.invited[i] },
