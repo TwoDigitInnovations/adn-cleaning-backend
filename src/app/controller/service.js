@@ -204,30 +204,33 @@ module.exports = {
     let job = await Booking.findById(payload.id);
     if (!job)
       return response.notFound(res, { message: "Booking does not exist." });
-    let set = new Set(job.invited.map((a) => a.toString()));
+    // let set = new Set(job.invited.map((a) => a.toString()));
 
     try {
       const user = await userHelper.find({ _id: job.booking_for }).lean();
 
       for (let i = 0; i < payload.invited.length; i++) {
-        if (!set.has(payload.invited[i])) {
-          const job = await Booking.findByIdAndUpdate(payload.id, {
-            $push: { invited: payload.invited[i] },
-          });
-          let JobIn = await JobInvite.create({
-            invited: payload.invited[i],
-            job: payload.id,
-            by: payload.posted_by,
-            start_date: job.slot.start_date,
-            end_date: job.slot.end_date,
-          });
-          notification.push(
-            payload.invited[i],
-            `You have been invited by ${user.username} for a job.`,
-            JobIn._id
-          );
-          await JobIn.save();
-        }
+        // if (!set.has(payload.invited[i])) {
+        await JobInvite.findByIdAndRemove(job.invited[0]);
+        const job = await Booking.findByIdAndUpdate(payload.id, {
+          // $push: { invited: payload.invited[i] },
+          invited: payload.invited[i],
+        });
+        let JobIn = await JobInvite.create({
+          invited: payload.invited[i],
+          job: payload.id,
+          by: payload.posted_by,
+          start_date: job.slot.start_date,
+          end_date: job.slot.end_date,
+        });
+        notification.push(
+          payload.invited[i],
+          `You have been invited by ${user.username} for a job.`,
+          JobIn._id
+        );
+        await JobIn.save();
+
+        // }
       }
 
       return response.ok(res, { message: "Cleaner invited successfully" });
