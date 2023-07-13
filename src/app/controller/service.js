@@ -211,7 +211,10 @@ module.exports = {
 
       for (let i = 0; i < payload.invited.length; i++) {
         // if (!set.has(payload.invited[i])) {
-        await JobInvite.findByIdAndRemove(job.invited[0]);
+        if (job?.invited?.length > 0) {
+          await JobInvite.findByIdAndRemove(job.invited[0]);
+        }
+
         const job = await Booking.findByIdAndUpdate(payload.id, {
           // $push: { invited: payload.invited[i] },
           invited: payload.invited[i],
